@@ -3,37 +3,84 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23154273'/%3E%3Cpath d='M6 13 L9 7 L12 11 L16 4 L20 11 L23 7 L26 13 L26 16 L6 16 Z' fill='%23fff'/%3E%3Ccircle cx='16' cy='3.2' r='1.4' fill='%23fff'/%3E%3Cpath d='M9 18 L23 18 L23 24 Q23 27 16 30 Q9 27 9 24 Z' fill='%23fff'/%3E%3C/svg%3E"
-    />
+    <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <title>Machinery of Government — DICTU & de Nederlandse Rijksoverheid</title>
     <meta
       name="description"
       content="Een interactieve kaart van DICTU binnen de Nederlandse Rijksoverheid — ontstaan, plek in EZK, bewindspersonen en verantwoordelijkheden na Kabinet-Jetten (2026)."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=RO+Serif:wght@400;700&family=RO+Sans:wght@400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
+    <style>
+      /* Officiële Rijksoverheid/DICTU huisstijl-fonts */
+      @font-face {
+        font-family: "RO SansWebText";
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+        src: local("RO SansWebText Regular"),
+          url("fonts/RO-SansWebText-Regular.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "RO SansWebText";
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+        src: local("RO SansWebText Italic"),
+          url("fonts/RO-SansWebText-Italic.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "RO SansWebText";
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+        src: local("RO SansWebText Bold"),
+          url("fonts/RO-SansWebText-Bold.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "RO SerifWeb";
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+        src: local("RO SerifWeb Regular"),
+          url("fonts/RO-SerifWeb-Regular.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "RO SerifWeb";
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+        src: local("RO SerifWeb Italic"),
+          url("fonts/RO-SerifWeb-Italic.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "RO SerifWeb";
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+        src: local("RO SerifWeb Bold"),
+          url("fonts/RO-SerifWeb-Bold.woff2") format("woff2");
+      }
+    </style>
     <style>
       :root {
-        --ro-blue: #154273;
-        --ro-blue-dark: #0b2844;
-        --ro-blue-light: #e6eef5;
+        /* DICTU huisstijl — overgenomen van dictu.nl */
+        --ro-blue: #01689b;         /* primary DICTU blue */
+        --ro-blue-dark: #004263;    /* alt dark blue */
+        --ro-blue-light: #e5f0f9;   /* light bg */
+        --ro-blue-lighter: #f7fbfd;
+        --ro-blue-pale: #cce0f1;
         --ro-accent: #01689b;
+        --ro-navy: #154273;         /* diepe navy voor logo-blok */
         --ro-yellow: #ffb612;
         --ro-red: #d52b1e;
         --ro-green: #39870c;
         --ro-orange: #e17000;
-        --ro-grey-1: #f3f3f3;
-        --ro-grey-2: #d9d9d9;
-        --ro-grey-3: #8b8b8b;
-        --ro-grey-4: #535353;
-        --ro-ink: #1d1d1b;
+        --ro-grey-1: #f2f7fc;
+        --ro-grey-2: #cce0f1;
+        --ro-grey-3: #585766;
+        --ro-grey-4: #585766;
+        --ro-ink: #000000;
         --shadow-sm: 0 1px 2px rgba(11, 40, 68, 0.06), 0 1px 3px rgba(11, 40, 68, 0.1);
         --shadow-md: 0 4px 6px rgba(11, 40, 68, 0.05), 0 10px 20px rgba(11, 40, 68, 0.08);
         --shadow-lg: 0 10px 15px rgba(11, 40, 68, 0.06), 0 20px 40px rgba(11, 40, 68, 0.12);
@@ -58,7 +105,7 @@
       }
 
       body {
-        font-family: "RO Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+        font-family: "RO SansWebText", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
           sans-serif;
         color: var(--ro-ink);
         background: #fafafa;
@@ -71,7 +118,7 @@
       h2,
       h3,
       h4 {
-        font-family: "RO Serif", Georgia, serif;
+        font-family: "RO SerifWeb", Georgia, serif;
         font-weight: 700;
         line-height: 1.2;
         color: var(--ro-blue-dark);
@@ -140,7 +187,7 @@
         padding: 12px 0;
       }
       .nav-title {
-        font-family: "RO Serif", serif;
+        font-family: "RO SerifWeb", serif;
         font-weight: 700;
         color: var(--ro-blue-dark);
         font-size: 17px;
@@ -279,7 +326,7 @@
         box-shadow: 0 0 16px rgba(255, 182, 18, 0.5);
       }
       .hero-stat .num {
-        font-family: "RO Serif", serif;
+        font-family: "RO SerifWeb", serif;
         font-size: 32px;
         font-weight: 700;
         display: block;
@@ -329,7 +376,7 @@
         padding: 14px 16px;
         background: linear-gradient(90deg, var(--ro-yellow) 0%, #ffcf54 100%);
         border-radius: var(--radius-sm);
-        font-family: "RO Serif", serif;
+        font-family: "RO SerifWeb", serif;
         font-style: italic;
         font-size: 15px;
         color: var(--ro-blue-dark);
@@ -405,21 +452,33 @@
       .quick-facts {
         list-style: none;
         display: grid;
-        gap: 12px;
       }
       .quick-facts li {
         display: grid;
-        grid-template-columns: 120px 1fr;
+        grid-template-columns: 110px 1fr;
         gap: 14px;
         font-size: 14px;
         align-items: baseline;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(11, 40, 68, 0.08);
+      }
+      .quick-facts li:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+      .quick-facts li:first-child {
+        padding-top: 0;
       }
       .quick-facts .k {
         color: var(--ro-grey-3);
-        font-weight: 500;
+        font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
       }
       .quick-facts .v {
         color: var(--ro-ink);
+        font-weight: 500;
       }
 
       /* Sections */
@@ -500,7 +559,7 @@
         box-shadow: 0 0 0 3px #fff, 0 0 0 8px rgba(255, 182, 18, 0.25);
       }
       .tl-year {
-        font-family: "RO Serif", serif;
+        font-family: "RO SerifWeb", serif;
         font-weight: 700;
         font-size: 22px;
         color: var(--ro-blue);
@@ -600,7 +659,7 @@
         color: var(--ro-green);
       }
       .org-card h4 {
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 15px;
         color: var(--ro-ink);
         margin-bottom: 4px;
@@ -679,7 +738,7 @@
         color: #fff;
         display: grid;
         place-items: center;
-        font-family: "RO Serif", serif;
+        font-family: "RO SerifWeb", serif;
         font-weight: 700;
         font-size: 24px;
         flex-shrink: 0;
@@ -697,7 +756,7 @@
         background: linear-gradient(135deg, #00a650, #007a3c);
       }
       .person-name {
-        font-family: "RO Serif", serif;
+        font-family: "RO SerifWeb", serif;
         font-size: 22px;
         font-weight: 700;
         color: var(--ro-ink);
@@ -753,7 +812,7 @@
         flex: 1;
       }
       .person-body h5 {
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -860,7 +919,7 @@
         color: #fff;
       }
       .task-card h4 {
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 15px;
         margin-bottom: 6px;
         color: var(--ro-ink);
@@ -958,7 +1017,7 @@
         color: var(--ro-ink);
       }
       .shift-box h4 {
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 14px;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -966,7 +1025,7 @@
         margin-bottom: 4px;
       }
       .shift-box .min {
-        font-family: "RO Serif", serif;
+        font-family: "RO SerifWeb", serif;
         font-size: 22px;
         color: var(--ro-blue-dark);
         margin-bottom: 16px;
@@ -1015,7 +1074,7 @@
         background: transparent;
         border: none;
         padding: 8px 18px;
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 13px;
         font-weight: 600;
         color: var(--ro-grey-4);
@@ -1064,7 +1123,7 @@
         stroke-dasharray: 2 4;
       }
       .wheel-svg .ring-label {
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 11px;
         font-weight: 700;
         text-transform: uppercase;
@@ -1102,7 +1161,7 @@
         stroke: var(--ro-red);
       }
       .wheel-svg .node text {
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 10px;
         font-weight: 600;
         fill: var(--ro-ink);
@@ -1167,7 +1226,7 @@
         transition: transform var(--t-med) var(--ease-out);
       }
       .wheel-legend-box h4 {
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -1262,7 +1321,7 @@
         margin-bottom: 32px;
       }
       footer h5 {
-        font-family: "RO Sans", sans-serif;
+        font-family: "RO SansWebText", sans-serif;
         font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -1423,7 +1482,7 @@
             </div>
             <div class="hero-stat">
               <span class="num">3</span>
-              <span class="lbl">Vestigingen (Den Haag, Assen, Zwolle)</span>
+              <span class="lbl">Vestigingen</span>
             </div>
           </div>
         </div>
@@ -1432,20 +1491,20 @@
           <h3>Kerngegevens DICTU</h3>
           <ul class="quick-facts">
             <li>
-              <span class="k">Type</span>
-              <span class="v">Agentschap (baten-lastendienst)</span>
-            </li>
-            <li>
-              <span class="k">Moederdep.</span>
-              <span class="v">Ministerie van Economische Zaken &amp; Klimaat</span>
+              <span class="k">Ministerie</span>
+              <span class="v">Economische Zaken &amp; Klimaat</span>
             </li>
             <li>
               <span class="k">Opgericht</span>
-              <span class="v">2005 &middot; agentschap per 1 jan 2008</span>
+              <span class="v">2005 &mdash; agentschap sinds 2008</span>
             </li>
             <li>
               <span class="k">Eigenaar</span>
-              <span class="v">Plv. SG EZK</span>
+              <span class="v">plv. SG EZK</span>
+            </li>
+            <li>
+              <span class="k">Vestigingen</span>
+              <span class="v">Den Haag &middot; Assen &middot; Zwolle</span>
             </li>
             <li>
               <span class="k">Opdrachtgevers</span>
@@ -1485,7 +1544,7 @@
             <svg
               class="wheel-svg"
               id="wheelSvg"
-              viewBox="0 0 1000 1000"
+              viewBox="0 0 1200 1200"
               xmlns="http://www.w3.org/2000/svg"
               aria-label="Radial wheel of Dutch government with DICTU"
             ></svg>
@@ -1646,7 +1705,7 @@
                 <span class="tag dictu">Agentschap &middot; EZK</span>
                 <h4>DICTU — Dienst ICT Uitvoering</h4>
                 <p class="desc">
-                  ICT-ontwikkeling, beheer en exploitatie voor EZK, LNV en hun
+                  Ontwikkelt, beheert en exploiteert ICT voor EZK, LNV en hun
                   uitvoeringsorganisaties. ~1.700 medewerkers, 1.500+ applicaties.
                 </p>
               </div>
@@ -1654,8 +1713,8 @@
                 <span class="tag agency">Agentschap &middot; EZK</span>
                 <h4>Nederlandse Digitale Dienst</h4>
                 <p class="desc">
-                  Nieuwe dienst onder EZK voor burgergerichte digitale producten &amp;
-                  Digitale Wallet.
+                  Nieuwe dienst onder EZK voor burgergerichte digitale producten en
+                  de Digitale Wallet.
                 </p>
               </div>
               <div class="org-card">
@@ -1670,8 +1729,8 @@
                 <span class="tag service">Agentschap &middot; BZK</span>
                 <h4>Logius &amp; ICTU</h4>
                 <p class="desc">
-                  Beheer generieke digitale infrastructuur (DigiD, MijnOverheid) en
-                  programma-uitvoering.
+                  Beheren de generieke digitale infrastructuur (DigiD, MijnOverheid)
+                  en voeren programma&rsquo;s uit.
                 </p>
               </div>
               <div class="org-card">
@@ -1715,22 +1774,22 @@
               </div>
             </header>
             <div class="person-body">
-              <h5>Wat hij gaat doen</h5>
+              <h5>Wat hij doet</h5>
               <ul class="resp-list">
                 <li>
-                  Maakt de overheid &ldquo;slagvaardiger&rdquo;: stuurt op
-                  regeldrukvermindering (doel: ~500 regels minder).
+                  Stuurt op een slagvaardiger overheid en minder regeldruk
+                  (doel: circa 500 regels schrappen).
                 </li>
                 <li>
                   Bewaakt de rijksbrede IT-governance en informatieveiligheid vanuit
                   CIO-Rijk.
                 </li>
                 <li>
-                  Coördineert AI-gebruik binnen de Rijksdienst en open-government
-                  transparantie.
+                  Coördineert AI-gebruik binnen de Rijksdienst en de transparantie
+                  van open government.
                 </li>
                 <li>
-                  Aanspreekpunt voor Koninkrijksrelaties met de Caribische landen.
+                  Is aanspreekpunt voor Koninkrijksrelaties met de Caribische landen.
                 </li>
               </ul>
               <h5>Verantwoordelijkheden (portefeuille)</h5>
@@ -1765,11 +1824,11 @@
               </div>
             </header>
             <div class="person-body">
-              <h5>Wat zij gaat doen</h5>
+              <h5>Wat zij doet</h5>
               <ul class="resp-list">
                 <li>
-                  Maakt Nederland minder afhankelijk van buitenlandse (Amerikaanse en
-                  Chinese) techbedrijven &mdash; digitale soevereiniteit.
+                  Werkt aan digitale soevereiniteit: minder afhankelijkheid van
+                  Amerikaanse en Chinese techbedrijven.
                 </li>
                 <li>
                   Positioneert digitalisering als motor voor innovatie en
@@ -1779,7 +1838,7 @@
                   Voert de <strong>Nationale Digitaliseringsstrategie (NDS)</strong> uit.
                 </li>
                 <li>
-                  Leidt het Europees en internationaal digitaliseringsbeleid van Nederland.
+                  Leidt het Europese en internationale digitaliseringsbeleid van Nederland.
                 </li>
               </ul>
               <h5>Verantwoordelijkheden (portefeuille)</h5>
@@ -1808,7 +1867,7 @@
       <div class="container">
         <div class="block-head">
           <span class="block-label">De taak van DICTU</span>
-          <h2 class="block-title">Wat DICTU doet in dit geheel</h2>
+          <h2 class="block-title">Wat DICTU concreet doet</h2>
           <p class="block-sub">
             DICTU is de ICT-uitvoerder van EZK en LNV: ontwikkelt, beheert en
             exploiteert de applicaties, werkplekken en datavoorzieningen waarmee
@@ -1852,8 +1911,8 @@
             <div class="task-icon">&#x20AC;</div>
             <h4>Subsidiesystemen</h4>
             <p>
-              Uitvoerings-IT achter subsidieregelingen (via RVO) &mdash; van
-              aanvraag tot verantwoording.
+              Uitvoerings-IT achter subsidieregelingen (via RVO) &mdash; van aanvraag
+              tot verantwoording.
             </p>
           </div>
           <div class="task-card">
@@ -1906,8 +1965,8 @@
           <p class="block-sub">
             Met het aantreden van Kabinet-Jetten verhuist het zwaartepunt van het
             digitaliseringsbeleid van BZK naar EZK. De rijksbrede IT-sturing blijft
-            wél bij BZK. Voor DICTU betekent het: zelfde agentschap, nieuwe politieke
-            opdrachtgever.
+            wél bij BZK. Voor DICTU betekent dit: hetzelfde agentschap, een nieuwe
+            politieke opdrachtgever.
           </p>
         </div>
         <div class="shift">
@@ -1948,9 +2007,9 @@
           <div>
             <h5>Over deze pagina</h5>
             <p>
-              Interactieve kaart van DICTU binnen de Nederlandse Rijksoverheid, met
+              Interactieve kaart van DICTU binnen de Nederlandse Rijksoverheid:
               de verschuiving van digitale zaken onder Kabinet-Jetten (2026) en de
-              nieuwe taakverdeling tussen de staatssecretarissen Aerdts (EZK) en
+              nieuwe taakverdeling tussen staatssecretarissen Aerdts (EZK) en
               Van der Burg (BZK).
             </p>
           </div>
@@ -1986,9 +2045,21 @@
     </footer>
     <script>
       // ===== Wheel data =====
-      // ring 0: MP, ring 1: ministries, ring 2: bewindspersonen, ring 3: agentschappen/ICT, ring 4: uitvoerders
-      const CX = 500, CY = 500;
-      const RINGS = [0, 155, 255, 355, 455];
+      // ring 0: MP, ring 1: ministeries, ring 2: bewindspersonen, ring 3: agentschappen/ZBOs, ring 4: overige uitvoerders
+      const CX = 600, CY = 600;
+      const RINGS = [0, 195, 325, 450, 570];
+      // Ministeriekleuren — medium brand tinten voor witte tekst op ring 1
+      const MIN_COLOR = {
+        az:   "#5e6c7d", buza: "#1c699b", def:  "#4a5d23", ezk:  "#c4620e",
+        fin:  "#277569", ienw: "#1d7aa3", jenv: "#6a3a99", lnv:  "#4e8c2b",
+        ocw:  "#a52835", szw:  "#c9481f", vws:  "#b02a7a", bzk:  "#2d3ea3"
+      };
+      // Pastel tinten per ministerie voor agentschappen op ringen 3-4 (donkere tekst)
+      const MIN_TINT = {
+        az:   "#e1e5ec", buza: "#d5e4f4", def:  "#dee1cc", ezk:  "#fad9b3",
+        fin:  "#cde2de", ienw: "#cee6f1", jenv: "#e1d2ef", lnv:  "#d8ecc1",
+        ocw:  "#f1c7cc", szw:  "#fad5bf", vws:  "#f3c9de", bzk:  "#d0d5ed"
+      };
 
       const nodes = [
         // Ring 0 — center
@@ -2090,14 +2161,40 @@
       }
 
       // Node radius helper (matches rendering below). For squares this is half-side.
-      function nodeRadius(n) {
-        if (n.r) return n.r;
+      function baseRadius(n) {
         if (n.ring === 0) return 60;
         if (n.ring === 1) return 24;
         if (n.ring === 2) return 22;
         if (n.ring === 3) return 24;
         return 18;
       }
+      function labelFontSize(n) {
+        if (n.ring === 0) return 20;
+        if (n.ring === 1) return 11;
+        if (n.focus) return 12;
+        return 10;
+      }
+      function labelFontWeight(n) {
+        if (n.focus) return "900";
+        if (n.ring === 0) return "700";
+        return "600";
+      }
+      // Measure each label so shapes are sized to fit their text
+      nodes.forEach(n => {
+        const t = document.createElementNS(SVG_NS, "text");
+        t.setAttribute("font-size", labelFontSize(n));
+        t.setAttribute("font-weight", labelFontWeight(n));
+        t.setAttribute("font-family", '"RO SansWebText", sans-serif');
+        t.style.visibility = "hidden";
+        t.textContent = n.label;
+        svg.appendChild(t);
+        const bbox = t.getBBox();
+        svg.removeChild(t);
+        const needed = bbox.width / 2 + 7;
+        const base = n.r || baseRadius(n);
+        n.r = Math.max(base, needed);
+      });
+      function nodeRadius(n) { return n.r || baseRadius(n); }
 
       // Edges — trimmed to node boundary, bend proportional to length, toward center
       const edgeEls = {};

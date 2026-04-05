@@ -153,19 +153,11 @@
         display: inline-block;
         text-decoration: none;
         line-height: 0;
-        transition: transform var(--t-med) var(--ease);
-      }
-      .brand:hover {
-        transform: translateX(2px);
       }
       .brand-logo {
         height: 72px;
         width: auto;
         display: block;
-        transition: filter var(--t-med) var(--ease);
-      }
-      .brand:hover .brand-logo {
-        filter: drop-shadow(0 2px 8px rgba(21, 66, 115, 0.2));
       }
       @media (max-width: 600px) {
         .brand-logo { height: 56px; }
@@ -443,11 +435,22 @@
         transform: translateY(-1px);
         box-shadow: 0 3px 8px rgba(1, 104, 155, 0.25);
       }
-      .client-chips .more {
+      .client-chips a.more {
         color: var(--ro-grey-3);
         font-size: 12px;
-        padding: 4px 0;
+        padding: 4px 6px;
         font-style: italic;
+        background: transparent;
+        text-decoration: none;
+        border-radius: 3px;
+        font-weight: 500;
+        transition: color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+      }
+      .client-chips a.more:hover {
+        color: var(--ro-accent);
+        background: var(--ro-blue-light);
+        transform: none;
+        box-shadow: none;
       }
       .quick-facts {
         list-style: none;
@@ -1134,7 +1137,7 @@
         fill: none;
         stroke: var(--ro-grey-2);
         stroke-width: 1;
-        opacity: 0.6;
+        opacity: 0.35;
         transition: all 0.2s;
       }
       .wheel-svg .edge.highlight {
@@ -1147,9 +1150,16 @@
       }
       .wheel-svg .node circle,
       .wheel-svg .node rect {
+        stroke: rgba(11, 40, 68, 0.25);
+        stroke-width: 1.5;
+        transition: stroke 0.15s, stroke-width 0.15s, filter 0.15s;
+      }
+      /* Ring 0 (MP) en ring 1 (ministeries) hebben donkere vulling — witte rand werkt daar beter */
+      .wheel-svg .node.center circle,
+      .wheel-svg .node.ring-1 rect,
+      .wheel-svg .node.ring-2 circle {
         stroke: #fff;
         stroke-width: 2;
-        transition: stroke 0.15s, stroke-width 0.15s, filter 0.15s;
       }
       .wheel-svg .node:hover circle,
       .wheel-svg .node:hover rect {
@@ -1256,6 +1266,13 @@
       }
       .legend-swatch.sq {
         border-radius: 3px;
+      }
+      .legend-items.legend-ministries {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px 10px;
+      }
+      .legend-items.legend-ministries li {
+        font-size: 12px;
       }
       .wheel-hint {
         font-size: 12px;
@@ -1464,7 +1481,7 @@
       <div class="container hero-inner">
         <div>
           <span class="hero-eyebrow">Kabinet-Jetten &middot; 2026</span>
-          <h1>DICTU binnen de machinerie van de Nederlandse Rijksoverheid</h1>
+          <h1>DICTU in de machinerie van de Nederlandse Rijksoverheid</h1>
           <p class="lead">
             De Dienst ICT Uitvoering (DICTU) is een van de grootste ICT-dienstverleners
             binnen de Rijksoverheid. Oorspronkelijk opgericht binnen het ministerie van
@@ -1499,10 +1516,6 @@
               <span class="v">2005 &mdash; agentschap sinds 2008</span>
             </li>
             <li>
-              <span class="k">Eigenaar</span>
-              <span class="v">plv. SG EZK</span>
-            </li>
-            <li>
               <span class="k">Vestigingen</span>
               <span class="v">Den Haag &middot; Assen &middot; Zwolle</span>
             </li>
@@ -1516,7 +1529,7 @@
                   <a href="https://www.nvwa.nl/" target="_blank" rel="noopener">NVWA</a>
                   <a href="https://www.rdi.nl/" target="_blank" rel="noopener">RDI</a>
                   <a href="https://www.acm.nl/" target="_blank" rel="noopener">ACM</a>
-                  <span class="more">&amp; meer</span>
+                  <a class="more" href="#taken">&amp; meer</a>
                 </span>
               </span>
             </li>
@@ -1555,19 +1568,28 @@
               <h4>Ringen</h4>
               <ul class="legend-items">
                 <li><span class="legend-swatch" style="background: #0b2844"></span>0 — Minister-President</li>
-                <li><span class="legend-swatch sq" style="background: #154273"></span>1 — Ministeries</li>
-                <li><span class="legend-swatch" style="background: #01689b"></span>2 — Bewindspersonen</li>
-                <li><span class="legend-swatch" style="background: #ffb612"></span>3 — Agentschappen / ICT</li>
-                <li><span class="legend-swatch" style="background: #39870c"></span>4 — Uitvoerders</li>
+                <li><span class="legend-swatch sq" style="background: #2d3ea3"></span>1 — Ministeries (12)</li>
+                <li><span class="legend-swatch" style="background: #c4620e"></span>2 — Bewindspersonen</li>
+                <li><span class="legend-swatch" style="background: #cee6f1"></span>3 — Agentschappen &amp; ZBOs</li>
+                <li><span class="legend-swatch" style="background: #d0d5ed"></span>4 — Uitvoerders &amp; voorzieningen</li>
               </ul>
             </div>
             <div class="wheel-legend-box">
-              <h4>Kleuren per type</h4>
-              <ul class="legend-items">
-                <li><span class="legend-swatch" style="background: #d52b1e"></span>Focus: DICTU</li>
-                <li><span class="legend-swatch" style="background: #e17000"></span>D66 &middot; EZK as</li>
-                <li><span class="legend-swatch" style="background: #0a2d82"></span>VVD &middot; BZK as</li>
-                <li><span class="legend-swatch" style="background: #8b8b8b"></span>Overig kabinet</li>
+              <h4>Kleur per ministerie</h4>
+              <ul class="legend-items legend-ministries">
+                <li><span class="legend-swatch" style="background: #5e6c7d"></span>AZ</li>
+                <li><span class="legend-swatch" style="background: #1c699b"></span>BuZa</li>
+                <li><span class="legend-swatch" style="background: #4a5d23"></span>Defensie</li>
+                <li><span class="legend-swatch" style="background: #c4620e"></span>EZK</li>
+                <li><span class="legend-swatch" style="background: #277569"></span>Financiën</li>
+                <li><span class="legend-swatch" style="background: #1d7aa3"></span>IenW</li>
+                <li><span class="legend-swatch" style="background: #6a3a99"></span>JenV</li>
+                <li><span class="legend-swatch" style="background: #4e8c2b"></span>LNV</li>
+                <li><span class="legend-swatch" style="background: #a52835"></span>OCW</li>
+                <li><span class="legend-swatch" style="background: #c9481f"></span>SZW</li>
+                <li><span class="legend-swatch" style="background: #b02a7a"></span>VWS</li>
+                <li><span class="legend-swatch" style="background: #2d3ea3"></span>BZK</li>
+                <li><span class="legend-swatch" style="background: #ffb612"></span>Focus: DICTU</li>
               </ul>
             </div>
             <div class="wheel-legend-box">
@@ -2063,78 +2085,195 @@
 
       const nodes = [
         // Ring 0 — center
-        { id: "mp", label: "Jetten", full: "Rob Jetten", type: "Minister-President", party: "D66", ring: 0, angle: 0, color: "#0b2844", shape: "circle", r: 60, url: "https://www.rijksoverheid.nl/regering/bewindspersonen/rob-jetten" },
+        { id: "mp", label: "Jetten", full: "Rob Jetten", type: "Minister-President", party: "D66", ring: 0, angle: 0, color: "#0b2844", shape: "circle", r: 75, url: "https://www.rijksoverheid.nl/regering/bewindspersonen/rob-jetten" },
 
-        // Ring 1 — 12 ministeries (alfabetisch, gelijkmatig verdeeld)
-        { id: "az",   label: "AZ",   full: "Algemene Zaken",                                 type: "Ministerie", ring: 1, angle: -90, color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-algemene-zaken" },
-        { id: "buza", label: "BuZa", full: "Buitenlandse Zaken",                             type: "Ministerie", ring: 1, angle: -60, color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-buitenlandse-zaken" },
-        { id: "def",  label: "Def",  full: "Defensie",                                       type: "Ministerie", ring: 1, angle: -30, color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-defensie" },
-        { id: "ezk",  label: "EZK",  full: "Economische Zaken en Klimaat",                   type: "Ministerie", ring: 1, angle: 0,   color: "#e17000", shape: "square", accent: true, url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-economische-zaken-en-klimaat" },
-        { id: "fin",  label: "Fin",  full: "Financiën",                                      type: "Ministerie", ring: 1, angle: 30,  color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-financien" },
-        { id: "ienw", label: "IenW", full: "Infrastructuur en Waterstaat",                   type: "Ministerie", ring: 1, angle: 60,  color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-infrastructuur-en-waterstaat" },
-        { id: "jenv", label: "JenV", full: "Justitie en Veiligheid",                         type: "Ministerie", ring: 1, angle: 90,  color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-justitie-en-veiligheid" },
-        { id: "lnv",  label: "LNV",  full: "Landbouw, Natuur en Voedselkwaliteit",           type: "Ministerie", ring: 1, angle: 120, color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-landbouw-natuur-en-voedselkwaliteit" },
-        { id: "ocw",  label: "OCW",  full: "Onderwijs, Cultuur en Wetenschap",               type: "Ministerie", ring: 1, angle: 150, color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-onderwijs-cultuur-en-wetenschap" },
-        { id: "szw",  label: "SZW",  full: "Sociale Zaken en Werkgelegenheid",               type: "Ministerie", ring: 1, angle: 180, color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-sociale-zaken-en-werkgelegenheid" },
-        { id: "vws",  label: "VWS",  full: "Volksgezondheid, Welzijn en Sport",              type: "Ministerie", ring: 1, angle: 210, color: "#154273", shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-volksgezondheid-welzijn-en-sport" },
-        { id: "bzk",  label: "BZK",  full: "Binnenlandse Zaken en Koninkrijksrelaties",      type: "Ministerie", ring: 1, angle: 240, color: "#0a2d82", shape: "square", accent: true, url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-binnenlandse-zaken-en-koninkrijksrelaties" },
+        // Ring 1 — 12 ministeries (alfabetisch, elk met eigen kleur)
+        { id: "az",   label: "AZ",   full: "Algemene Zaken",                                 type: "Ministerie", group: "az",   ring: 1, angle: -90, color: MIN_COLOR.az,   shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-algemene-zaken" },
+        { id: "buza", label: "BuZa", full: "Buitenlandse Zaken",                             type: "Ministerie", group: "buza", ring: 1, angle: -60, color: MIN_COLOR.buza, shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-buitenlandse-zaken" },
+        { id: "def",  label: "Def",  full: "Defensie",                                       type: "Ministerie", group: "def",  ring: 1, angle: -30, color: MIN_COLOR.def,  shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-defensie" },
+        { id: "ezk",  label: "EZK",  full: "Economische Zaken en Klimaat",                   type: "Ministerie", group: "ezk",  ring: 1, angle: 0,   color: MIN_COLOR.ezk,  shape: "square", accent: true, url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-economische-zaken-en-klimaat" },
+        { id: "fin",  label: "Fin",  full: "Financiën",                                      type: "Ministerie", group: "fin",  ring: 1, angle: 30,  color: MIN_COLOR.fin,  shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-financien" },
+        { id: "ienw", label: "IenW", full: "Infrastructuur en Waterstaat",                   type: "Ministerie", group: "ienw", ring: 1, angle: 60,  color: MIN_COLOR.ienw, shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-infrastructuur-en-waterstaat" },
+        { id: "jenv", label: "JenV", full: "Justitie en Veiligheid",                         type: "Ministerie", group: "jenv", ring: 1, angle: 90,  color: MIN_COLOR.jenv, shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-justitie-en-veiligheid" },
+        { id: "lnv",  label: "LNV",  full: "Landbouw, Natuur en Voedselkwaliteit",           type: "Ministerie", group: "lnv",  ring: 1, angle: 120, color: MIN_COLOR.lnv,  shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-landbouw-natuur-en-voedselkwaliteit" },
+        { id: "ocw",  label: "OCW",  full: "Onderwijs, Cultuur en Wetenschap",               type: "Ministerie", group: "ocw",  ring: 1, angle: 150, color: MIN_COLOR.ocw,  shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-onderwijs-cultuur-en-wetenschap" },
+        { id: "szw",  label: "SZW",  full: "Sociale Zaken en Werkgelegenheid",               type: "Ministerie", group: "szw",  ring: 1, angle: 180, color: MIN_COLOR.szw,  shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-sociale-zaken-en-werkgelegenheid" },
+        { id: "vws",  label: "VWS",  full: "Volksgezondheid, Welzijn en Sport",              type: "Ministerie", group: "vws",  ring: 1, angle: 210, color: MIN_COLOR.vws,  shape: "square", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-volksgezondheid-welzijn-en-sport" },
+        { id: "bzk",  label: "BZK",  full: "Binnenlandse Zaken en Koninkrijksrelaties",      type: "Ministerie", group: "bzk",  ring: 1, angle: 240, color: MIN_COLOR.bzk,  shape: "square", accent: true, url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-binnenlandse-zaken-en-koninkrijksrelaties" },
 
-        // Ring 2 — bewindspersonen (op de digitale as EZK↔BZK, met aanvullende namen voor context)
-        { id: "aerdts",  label: "Aerdts",        full: "Willemijn Aerdts",  type: "Stas. Digitale Economie & Soevereiniteit · EZK", party: "D66", ring: 2, angle: -8,  color: "#e17000", shape: "circle", url: "https://www.rijksoverheid.nl/regering/bewindspersonen/willemijn-aerdts" },
-        { id: "ezkmin",  label: "EZK-min.",      full: "Minister EZK",      type: "Minister · EZK",                                ring: 2, angle: 8,   color: "#01689b", shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-economische-zaken-en-klimaat/organisatie/bewindspersonen" },
-        { id: "vdb",     label: "Van der Burg",  full: "Eric van der Burg", type: "Stas. Koninkrijksrelaties & Slagvaardige Overheid · BZK", party: "VVD", ring: 2, angle: 248, color: "#0a2d82", shape: "circle", url: "https://www.rijksoverheid.nl/regering/bewindspersonen/eric-van-der-burg" },
-        { id: "bzkmin",  label: "BZK-min.",      full: "Minister BZK",      type: "Minister · BZK",                                ring: 2, angle: 232, color: "#01689b", shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-binnenlandse-zaken-en-koninkrijksrelaties/organisatie/bewindspersonen" },
-        { id: "lnvmin",  label: "LNV-min.",      full: "Minister LNV",      type: "Minister · LNV",                                ring: 2, angle: 120, color: "#01689b", shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-landbouw-natuur-en-voedselkwaliteit/organisatie/bewindspersonen" },
+        // Ring 2 — belangrijkste bewindspersonen (digitale as EZK↔BZK + LNV)
+        { id: "aerdts",  label: "Aerdts",       full: "Willemijn Aerdts",  type: "Stas. Digitale Economie & Soevereiniteit · EZK", party: "D66", group: "ezk", ring: 2, angle: -8,  color: MIN_COLOR.ezk, shape: "circle", url: "https://www.rijksoverheid.nl/regering/bewindspersonen/willemijn-aerdts" },
+        { id: "ezkmin",  label: "EZK-min.",     full: "Minister EZK",      type: "Minister · EZK",       group: "ezk", ring: 2, angle: 8,   color: MIN_COLOR.ezk, shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-economische-zaken-en-klimaat/organisatie/bewindspersonen" },
+        { id: "vdb",     label: "Van der Burg", full: "Eric van der Burg", type: "Stas. Koninkrijksrelaties & Slagvaardige Overheid · BZK", party: "VVD", group: "bzk", ring: 2, angle: 248, color: MIN_COLOR.bzk, shape: "circle", url: "https://www.rijksoverheid.nl/regering/bewindspersonen/eric-van-der-burg" },
+        { id: "bzkmin",  label: "BZK-min.",     full: "Minister BZK",      type: "Minister · BZK",       group: "bzk", ring: 2, angle: 232, color: MIN_COLOR.bzk, shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-binnenlandse-zaken-en-koninkrijksrelaties/organisatie/bewindspersonen" },
+        { id: "lnvmin",  label: "LNV-min.",     full: "Minister LNV",      type: "Minister · LNV",       group: "lnv", ring: 2, angle: 120, color: MIN_COLOR.lnv, shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-landbouw-natuur-en-voedselkwaliteit/organisatie/bewindspersonen" },
 
-        // Ring 3 — agentschappen & ICT-diensten
-        { id: "bd",      label: "BD",       full: "Belastingdienst",               type: "Agentschap · Financiën",  ring: 3, angle: 72,  color: "#535353", shape: "circle", url: "https://www.belastingdienst.nl/" },
-        { id: "rws",     label: "RWS",      full: "Rijkswaterstaat",               type: "Agentschap · IenW",       ring: 3, angle: 86,  color: "#535353", shape: "circle", url: "https://www.rijkswaterstaat.nl/" },
-        { id: "ilt",     label: "ILT",      full: "Inspectie Leefomgeving & Transport", type: "Inspectie · IenW",    ring: 3, angle: 100, color: "#535353", shape: "circle", url: "https://www.ilent.nl/" },
-        { id: "ind",     label: "IND",      full: "Immigratie- en Naturalisatiedienst", type: "Agentschap · JenV",   ring: 3, angle: 142, color: "#535353", shape: "circle", url: "https://ind.nl/" },
-        { id: "duo",     label: "DUO",      full: "Dienst Uitvoering Onderwijs",   type: "Agentschap · OCW",        ring: 3, angle: 158, color: "#535353", shape: "circle", url: "https://duo.nl/" },
-        { id: "uwv",     label: "UWV",      full: "Uitvoeringsinstituut Werknemersverzekeringen", type: "ZBO · SZW", ring: 3, angle: 174, color: "#535353", shape: "circle", url: "https://www.uwv.nl/" },
-        { id: "svb",     label: "SVB",      full: "Sociale Verzekeringsbank",      type: "ZBO · SZW",               ring: 3, angle: 188, color: "#535353", shape: "circle", url: "https://www.svb.nl/" },
-        { id: "rivm",    label: "RIVM",     full: "Rijksinstituut v. Volksgezondheid & Milieu", type: "Agentschap · VWS", ring: 3, angle: 204, color: "#535353", shape: "circle", url: "https://www.rivm.nl/" },
-        // DICTU + dichte digitale schil
-        { id: "dictu",   label: "DICTU",    full: "Dienst ICT Uitvoering",        type: "Agentschap · EZK (focus)", ring: 3, angle: 0,   color: "#ffb612", shape: "circle", r: 32, focus: true, url: "https://www.dictu.nl/" },
-        { id: "ndd",     label: "NDD",      full: "Nederlandse Digitale Dienst",  type: "Dienst · EZK",             ring: 3, angle: 18,  color: "#ffb612", shape: "circle", url: "https://www.rijksoverheid.nl/onderwerpen/digitale-overheid" },
-        { id: "rvo",     label: "RVO",      full: "Rijksdienst voor Ondernemend Nederland", type: "Agentschap · EZK/LNV", ring: 3, angle: -18, color: "#39870c", shape: "circle", url: "https://www.rvo.nl/" },
-        { id: "nvwa",    label: "NVWA",     full: "Ned. Voedsel- en Warenautoriteit", type: "Inspectie · LNV",      ring: 3, angle: -36, color: "#39870c", shape: "circle", url: "https://www.nvwa.nl/" },
-        { id: "rdi",     label: "RDI",      full: "Rijksinspectie Digitale Infrastructuur", type: "Inspectie · EZK", ring: 3, angle: 36, color: "#ffb612", shape: "circle", url: "https://www.rdi.nl/" },
-        { id: "acm",     label: "ACM",      full: "Autoriteit Consument & Markt",  type: "Toezichthouder · EZK",    ring: 3, angle: 54,  color: "#ffb612", shape: "circle", url: "https://www.acm.nl/" },
-        { id: "sscict",  label: "SSC-ICT",  full: "SSC-ICT Haaglanden",            type: "Shared service · BZK",    ring: 3, angle: 240, color: "#01689b", shape: "circle", url: "https://www.ssc-ict.nl/" },
-        { id: "logius",  label: "Logius",   full: "Logius",                        type: "Agentschap · BZK",        ring: 3, angle: 258, color: "#01689b", shape: "circle", url: "https://www.logius.nl/" },
-        { id: "ictu",    label: "ICTU",     full: "ICTU (stichting)",              type: "Programma-uitvoerder · BZK", ring: 3, angle: 276, color: "#01689b", shape: "circle", url: "https://www.ictu.nl/" },
-        { id: "rvig",    label: "RvIG",     full: "Rijksdienst v. Identiteitsgegevens", type: "Uitvoeringsorg. · BZK", ring: 3, angle: 222, color: "#01689b", shape: "circle", url: "https://www.rvig.nl/" },
+        // Ring 3 — agentschappen, ZBOs & inspecties per ministerie
 
-        // Ring 4 — klanten / afnemers
-        { id: "cbs",     label: "CBS",      full: "Centraal Bureau voor de Statistiek", type: "Zelfstandig · EZK", ring: 4, angle: -20, color: "#535353", shape: "circle", url: "https://www.cbs.nl/" },
-        { id: "sodm",    label: "SodM",     full: "Staatstoezicht op de Mijnen",         type: "Toezichthouder · EZK", ring: 4, angle: 20, color: "#535353", shape: "circle", url: "https://www.sodm.nl/" },
-        { id: "at",      label: "AT",       full: "Agentschap Telecom (RDI)",            type: "Agentschap · EZK", ring: 4, angle: 40, color: "#535353", shape: "circle", url: "https://www.rdi.nl/" },
-        { id: "nea",     label: "NEa",      full: "Nederlandse Emissieautoriteit",       type: "Uitvoerder · EZK", ring: 4, angle: -40, color: "#535353", shape: "circle", url: "https://www.emissieautoriteit.nl/" },
-        { id: "mindef",  label: "JIVC",     full: "JIVC (Defensie)",                     type: "ICT · Defensie",    ring: 4, angle: 310, color: "#535353", shape: "circle", url: "https://www.defensie.nl/organisatie/cds/eenheden/jivc" },
-        { id: "digid",   label: "DigiD",    full: "DigiD / MijnOverheid",                type: "Voorziening · BZK", ring: 4, angle: 258, color: "#535353", shape: "circle", url: "https://www.digid.nl/" },
-        { id: "brp",     label: "BRP",      full: "Basisregistratie Personen",           type: "Register · BZK",    ring: 4, angle: 232, color: "#535353", shape: "circle", url: "https://www.rvig.nl/brp" },
+        // AZ (-90)
+        { id: "rvd",  label: "RVD",  full: "Rijksvoorlichtingsdienst",       type: "Dienst · AZ", group: "az", ring: 3, angle: -94, color: MIN_TINT.az, shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-algemene-zaken" },
+        { id: "dpc",  label: "DPC",  full: "Dienst Publiek en Communicatie", type: "Dienst · AZ", group: "az", ring: 3, angle: -86, color: MIN_TINT.az, shape: "circle", url: "https://www.communicatierijk.nl/" },
+
+        // BuZa (-60)
+        { id: "nlw",  label: "NLW",  full: "Nederland Wereldwijd (ambassades)", type: "Netwerk · BuZa", group: "buza", ring: 3, angle: -60, color: MIN_TINT.buza, shape: "circle", url: "https://www.nederlandwereldwijd.nl/" },
+
+        // Def (-30)
+        { id: "kmar", label: "KMar", full: "Koninklijke Marechaussee",       type: "Krijgsmacht · Def", group: "def", ring: 3, angle: -42, color: MIN_TINT.def, shape: "circle", url: "https://www.defensie.nl/organisatie/marechaussee" },
+        { id: "jivc", label: "JIVC", full: "Joint IV Commando",              type: "ICT · Def",         group: "def", ring: 3, angle: -36, color: MIN_TINT.def, shape: "circle", url: "https://www.defensie.nl/organisatie/cds/eenheden/jivc" },
+        { id: "dmo",  label: "DMO",  full: "Defensie Materieel Organisatie", type: "Agentschap · Def",  group: "def", ring: 3, angle: -30, color: MIN_TINT.def, shape: "circle", url: "https://www.defensie.nl/organisatie/dmo" },
+        { id: "dosco",label: "DOSCO",full: "Defensie Ondersteuningscommando",type: "Agentschap · Def",  group: "def", ring: 3, angle: -24, color: MIN_TINT.def, shape: "circle", url: "https://www.defensie.nl/organisatie/dosco" },
+        { id: "mivd", label: "MIVD", full: "Militaire Inlichtingen- en Veiligheidsdienst", type: "Dienst · Def", group: "def", ring: 3, angle: -18, color: MIN_TINT.def, shape: "circle", url: "https://www.defensie.nl/organisatie/mivd" },
+
+        // EZK (0) — focus area
+        { id: "rvo",   label: "RVO",   full: "Rijksdienst voor Ondernemend Nederland", type: "Agentschap · EZK/LNV", group: "ezk", ring: 3, angle: -14, color: MIN_TINT.ezk, shape: "circle", url: "https://www.rvo.nl/" },
+        { id: "acm",   label: "ACM",   full: "Autoriteit Consument & Markt",  type: "ZBO · EZK",          group: "ezk", ring: 3, angle: -7,  color: MIN_TINT.ezk, shape: "circle", url: "https://www.acm.nl/" },
+        { id: "dictu", label: "DICTU", full: "Dienst ICT Uitvoering",        type: "Agentschap · EZK (focus)", group: "ezk", ring: 3, angle: 0, color: "#ffb612", shape: "circle", r: 36, focus: true, url: "https://www.dictu.nl/" },
+        { id: "rdi",   label: "RDI",   full: "Rijksinspectie Digitale Infrastructuur", type: "Inspectie · EZK", group: "ezk", ring: 3, angle: 7, color: MIN_TINT.ezk, shape: "circle", url: "https://www.rdi.nl/" },
+        { id: "ndd",   label: "NDD",   full: "Nederlandse Digitale Dienst",  type: "Dienst · EZK",        group: "ezk", ring: 3, angle: 14,  color: MIN_TINT.ezk, shape: "circle", url: "https://www.rijksoverheid.nl/onderwerpen/digitale-overheid" },
+
+        // Fin (30)
+        { id: "bd",        label: "BD",        full: "Belastingdienst",               type: "Agentschap · Fin", group: "fin", ring: 3, angle: 18,  color: MIN_TINT.fin, shape: "circle", url: "https://www.belastingdienst.nl/" },
+        { id: "douane",    label: "Douane",    full: "Douane",                        type: "Dienst · Fin",     group: "fin", ring: 3, angle: 24,  color: MIN_TINT.fin, shape: "circle", url: "https://www.douane.nl/" },
+        { id: "toeslagen", label: "Toeslagen", full: "Dienst Toeslagen",              type: "Dienst · Fin",     group: "fin", ring: 3, angle: 30,  color: MIN_TINT.fin, shape: "circle", url: "https://www.toeslagen.nl/" },
+        { id: "afm",       label: "AFM",       full: "Autoriteit Financiële Markten", type: "ZBO · Fin",        group: "fin", ring: 3, angle: 36,  color: MIN_TINT.fin, shape: "circle", url: "https://www.afm.nl/" },
+        { id: "adr",       label: "ADR",       full: "Auditdienst Rijk",              type: "Dienst · Fin",     group: "fin", ring: 3, angle: 42,  color: MIN_TINT.fin, shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-financien/organisatie/organogram/auditdienst-rijk" },
+
+        // IenW (60)
+        { id: "rws",      label: "RWS",      full: "Rijkswaterstaat",               type: "Agentschap · IenW", group: "ienw", ring: 3, angle: 48,  color: MIN_TINT.ienw, shape: "circle", url: "https://www.rijkswaterstaat.nl/" },
+        { id: "ilt",      label: "ILT",      full: "Inspectie Leefomgeving & Transport", type: "Inspectie · IenW", group: "ienw", ring: 3, angle: 54,  color: MIN_TINT.ienw, shape: "circle", url: "https://www.ilent.nl/" },
+        { id: "knmi",     label: "KNMI",     full: "Kon. Ned. Meteorologisch Instituut", type: "Agentschap · IenW", group: "ienw", ring: 3, angle: 60,  color: MIN_TINT.ienw, shape: "circle", url: "https://www.knmi.nl/" },
+        { id: "rdw",      label: "RDW",      full: "Rijksdienst voor het Wegverkeer",    type: "ZBO · IenW",   group: "ienw", ring: 3, angle: 66,  color: MIN_TINT.ienw, shape: "circle", url: "https://www.rdw.nl/" },
+        { id: "kadaster", label: "Kadaster", full: "Kadaster",                    type: "ZBO · IenW",       group: "ienw", ring: 3, angle: 72,  color: MIN_TINT.ienw, shape: "circle", url: "https://www.kadaster.nl/" },
+
+        // JenV (90)
+        { id: "politie",  label: "Politie",  full: "Nationale Politie",           type: "Uitvoeringsorg. · JenV", group: "jenv", ring: 3, angle: 78,  color: MIN_TINT.jenv, shape: "circle", url: "https://www.politie.nl/" },
+        { id: "om",       label: "OM",       full: "Openbaar Ministerie",         type: "Uitvoeringsorg. · JenV", group: "jenv", ring: 3, angle: 84,  color: MIN_TINT.jenv, shape: "circle", url: "https://www.om.nl/" },
+        { id: "ind",      label: "IND",      full: "Immigratie- en Naturalisatiedienst", type: "Agentschap · JenV", group: "jenv", ring: 3, angle: 90, color: MIN_TINT.jenv, shape: "circle", url: "https://ind.nl/" },
+        { id: "dji",      label: "DJI",      full: "Dienst Justitiële Inrichtingen", type: "Agentschap · JenV", group: "jenv", ring: 3, angle: 96,  color: MIN_TINT.jenv, shape: "circle", url: "https://www.dji.nl/" },
+        { id: "cjib",     label: "CJIB",     full: "Centraal Justitieel Incassobureau", type: "Agentschap · JenV", group: "jenv", ring: 3, angle: 102, color: MIN_TINT.jenv, shape: "circle", url: "https://www.cjib.nl/" },
+
+        // LNV (120)
+        { id: "nvwa",     label: "NVWA",     full: "Ned. Voedsel- en Warenautoriteit", type: "Agentschap · LNV", group: "lnv", ring: 3, angle: 114, color: MIN_TINT.lnv, shape: "circle", url: "https://www.nvwa.nl/" },
+        { id: "sbb",      label: "SBB",      full: "Staatsbosbeheer",             type: "ZBO · LNV",        group: "lnv", ring: 3, angle: 126, color: MIN_TINT.lnv, shape: "circle", url: "https://www.staatsbosbeheer.nl/" },
+
+        // OCW (150)
+        { id: "duo",      label: "DUO",      full: "Dienst Uitvoering Onderwijs", type: "Agentschap · OCW", group: "ocw", ring: 3, angle: 138, color: MIN_TINT.ocw, shape: "circle", url: "https://duo.nl/" },
+        { id: "inspow",   label: "Insp-O",   full: "Inspectie van het Onderwijs", type: "Inspectie · OCW",  group: "ocw", ring: 3, angle: 144, color: MIN_TINT.ocw, shape: "circle", url: "https://www.onderwijsinspectie.nl/" },
+        { id: "rce",      label: "RCE",      full: "Rijksdienst Cultureel Erfgoed", type: "Agentschap · OCW", group: "ocw", ring: 3, angle: 150, color: MIN_TINT.ocw, shape: "circle", url: "https://www.cultureelerfgoed.nl/" },
+        { id: "kb",       label: "KB",       full: "Koninklijke Bibliotheek",     type: "ZBO · OCW",        group: "ocw", ring: 3, angle: 156, color: MIN_TINT.ocw, shape: "circle", url: "https://www.kb.nl/" },
+        { id: "natarch",  label: "NatArch",  full: "Nationaal Archief",           type: "Dienst · OCW",     group: "ocw", ring: 3, angle: 162, color: MIN_TINT.ocw, shape: "circle", url: "https://www.nationaalarchief.nl/" },
+
+        // SZW (180)
+        { id: "uwv",      label: "UWV",      full: "Uitvoeringsinstituut Werknemersverzekeringen", type: "ZBO · SZW", group: "szw", ring: 3, angle: 170, color: MIN_TINT.szw, shape: "circle", url: "https://www.uwv.nl/" },
+        { id: "svb",      label: "SVB",      full: "Sociale Verzekeringsbank",    type: "ZBO · SZW",        group: "szw", ring: 3, angle: 176, color: MIN_TINT.szw, shape: "circle", url: "https://www.svb.nl/" },
+        { id: "nla",      label: "NLA",      full: "Nederlandse Arbeidsinspectie",type: "Inspectie · SZW",  group: "szw", ring: 3, angle: 184, color: MIN_TINT.szw, shape: "circle", url: "https://www.nlarbeidsinspectie.nl/" },
+        { id: "ser",      label: "SER",      full: "Sociaal-Economische Raad",    type: "Adviesorgaan · SZW", group: "szw", ring: 3, angle: 190, color: MIN_TINT.szw, shape: "circle", url: "https://www.ser.nl/" },
+
+        // VWS (210)
+        { id: "rivm",     label: "RIVM",     full: "Rijksinstituut v. Volksgezondheid & Milieu", type: "Agentschap · VWS", group: "vws", ring: 3, angle: 198, color: MIN_TINT.vws, shape: "circle", url: "https://www.rivm.nl/" },
+        { id: "igj",      label: "IGJ",      full: "Inspectie Gezondheidszorg en Jeugd", type: "Inspectie · VWS", group: "vws", ring: 3, angle: 204, color: MIN_TINT.vws, shape: "circle", url: "https://www.igj.nl/" },
+        { id: "nza",      label: "NZa",      full: "Nederlandse Zorgautoriteit",  type: "ZBO · VWS",        group: "vws", ring: 3, angle: 210, color: MIN_TINT.vws, shape: "circle", url: "https://www.nza.nl/" },
+        { id: "cak",      label: "CAK",      full: "CAK",                         type: "ZBO · VWS",        group: "vws", ring: 3, angle: 216, color: MIN_TINT.vws, shape: "circle", url: "https://www.hetcak.nl/" },
+        { id: "ciz",      label: "CIZ",      full: "Centrum Indicatiestelling Zorg", type: "ZBO · VWS",     group: "vws", ring: 3, angle: 222, color: MIN_TINT.vws, shape: "circle", url: "https://www.ciz.nl/" },
+
+        // BZK (240)
+        { id: "rvig",     label: "RvIG",     full: "Rijksdienst v. Identiteitsgegevens", type: "Agentschap · BZK", group: "bzk", ring: 3, angle: 226, color: MIN_TINT.bzk, shape: "circle", url: "https://www.rvig.nl/" },
+        { id: "rvb",      label: "RVB",      full: "Rijksvastgoedbedrijf",        type: "Agentschap · BZK", group: "bzk", ring: 3, angle: 232, color: MIN_TINT.bzk, shape: "circle", url: "https://www.rijksvastgoedbedrijf.nl/" },
+        { id: "sscict",   label: "SSC-ICT",  full: "SSC-ICT Haaglanden",          type: "Shared service · BZK", group: "bzk", ring: 3, angle: 240, color: MIN_TINT.bzk, shape: "circle", url: "https://www.ssc-ict.nl/" },
+        { id: "logius",   label: "Logius",   full: "Logius",                      type: "Agentschap · BZK", group: "bzk", ring: 3, angle: 246, color: MIN_TINT.bzk, shape: "circle", url: "https://www.logius.nl/" },
+        { id: "ictu",     label: "ICTU",     full: "ICTU (stichting)",            type: "Programma-uitvoerder · BZK", group: "bzk", ring: 3, angle: 254, color: MIN_TINT.bzk, shape: "circle", url: "https://www.ictu.nl/" },
+
+        // Ring 4 — aanvullende uitvoerders, ZBOs & voorzieningen
+
+        // EZK
+        { id: "cbs",      label: "CBS",      full: "Centraal Bureau voor de Statistiek", type: "ZBO · EZK", group: "ezk", ring: 4, angle: -18, color: MIN_TINT.ezk, shape: "circle", url: "https://www.cbs.nl/" },
+        { id: "sodm",     label: "SodM",     full: "Staatstoezicht op de Mijnen", type: "Toezichthouder · EZK", group: "ezk", ring: 4, angle: -12, color: MIN_TINT.ezk, shape: "circle", url: "https://www.sodm.nl/" },
+        { id: "nea",      label: "NEa",      full: "Nederlandse Emissieautoriteit", type: "Uitvoerder · EZK", group: "ezk", ring: 4, angle: -6, color: MIN_TINT.ezk, shape: "circle", url: "https://www.emissieautoriteit.nl/" },
+        { id: "octrooi",  label: "OCNL",     full: "Octrooicentrum Nederland",    type: "Onderdeel · EZK (RVO)", group: "ezk", ring: 4, angle: 6, color: MIN_TINT.ezk, shape: "circle", url: "https://www.rvo.nl/onderwerpen/octrooien-of-patenten" },
+        { id: "atr",      label: "ATR",      full: "Adviescollege Toetsing Regeldruk", type: "Advies · EZK", group: "ezk", ring: 4, angle: 12, color: MIN_TINT.ezk, shape: "circle", url: "https://www.atr-regeldruk.nl/" },
+        { id: "cpb",      label: "CPB",      full: "Centraal Planbureau",         type: "Planbureau · EZK", group: "ezk", ring: 4, angle: 18, color: MIN_TINT.ezk, shape: "circle", url: "https://www.cpb.nl/" },
+
+        // Fin
+        { id: "dnb",      label: "DNB",      full: "De Nederlandsche Bank",       type: "Toezicht · Fin",   group: "fin", ring: 4, angle: 24, color: MIN_TINT.fin, shape: "circle", url: "https://www.dnb.nl/" },
+        { id: "domeinen", label: "DRZ",      full: "Domeinen Roerende Zaken",     type: "Dienst · Fin",     group: "fin", ring: 4, angle: 30, color: MIN_TINT.fin, shape: "circle", url: "https://www.domeinenrz.nl/" },
+
+        // IenW
+        { id: "lvnl",     label: "LVNL",     full: "Luchtverkeersleiding Nederland", type: "ZBO · IenW",    group: "ienw", ring: 4, angle: 50, color: MIN_TINT.ienw, shape: "circle", url: "https://www.lvnl.nl/" },
+        { id: "anvs",     label: "ANVS",     full: "Aut. Nucl. Veiligheid & Stralingsbescherming", type: "Toezicht · IenW", group: "ienw", ring: 4, angle: 56, color: MIN_TINT.ienw, shape: "circle", url: "https://www.autoriteitnvs.nl/" },
+        { id: "pbl",      label: "PBL",      full: "Planbureau voor de Leefomgeving", type: "Planbureau · IenW", group: "ienw", ring: 4, angle: 62, color: MIN_TINT.ienw, shape: "circle", url: "https://www.pbl.nl/" },
+        { id: "stab",     label: "StAB",     full: "Stichting Advisering Bestuursrechtspraak", type: "Stichting · IenW", group: "ienw", ring: 4, angle: 68, color: MIN_TINT.ienw, shape: "circle", url: "https://www.stab.nl/" },
+
+        // JenV
+        { id: "coa",      label: "COA",      full: "Centraal Orgaan opvang asielzoekers", type: "ZBO · JenV", group: "jenv", ring: 4, angle: 80, color: MIN_TINT.jenv, shape: "circle", url: "https://www.coa.nl/" },
+        { id: "nfi",      label: "NFI",      full: "Nederlands Forensisch Instituut", type: "Agentschap · JenV", group: "jenv", ring: 4, angle: 86, color: MIN_TINT.jenv, shape: "circle", url: "https://www.forensischinstituut.nl/" },
+        { id: "dtv",      label: "DT&V",     full: "Dienst Terugkeer & Vertrek",  type: "Agentschap · JenV", group: "jenv", ring: 4, angle: 92, color: MIN_TINT.jenv, shape: "circle", url: "https://www.dienstterugkeerenvertrek.nl/" },
+        { id: "justid",   label: "Justid",   full: "Justitiële Informatiedienst", type: "Agentschap · JenV", group: "jenv", ring: 4, angle: 98, color: MIN_TINT.jenv, shape: "circle", url: "https://www.justid.nl/" },
+        { id: "rvdr",     label: "RvdR",     full: "Raad voor de Rechtspraak",    type: "Raad · JenV",      group: "jenv", ring: 4, angle: 104, color: MIN_TINT.jenv, shape: "circle", url: "https://www.rechtspraak.nl/" },
+
+        // OCW
+        { id: "nwo",      label: "NWO",      full: "Ned. Organisatie voor Wetenschappelijk Onderzoek", type: "ZBO · OCW", group: "ocw", ring: 4, angle: 140, color: MIN_TINT.ocw, shape: "circle", url: "https://www.nwo.nl/" },
+        { id: "cito",     label: "CITO",     full: "Stichting Cito",              type: "ZBO · OCW",        group: "ocw", ring: 4, angle: 148, color: MIN_TINT.ocw, shape: "circle", url: "https://www.cito.nl/" },
+        { id: "onderraad",label: "Raad O.",  full: "Onderwijsraad",               type: "Adviesorgaan · OCW", group: "ocw", ring: 4, angle: 156, color: MIN_TINT.ocw, shape: "circle", url: "https://www.onderwijsraad.nl/" },
+
+        // VWS
+        { id: "cbg",      label: "CBG",      full: "College ter Beoordeling van Geneesmiddelen", type: "ZBO · VWS", group: "vws", ring: 4, angle: 200, color: MIN_TINT.vws, shape: "circle", url: "https://www.cbg-meb.nl/" },
+        { id: "zin",      label: "ZIN",      full: "Zorginstituut Nederland",     type: "ZBO · VWS",        group: "vws", ring: 4, angle: 208, color: MIN_TINT.vws, shape: "circle", url: "https://www.zorginstituutnederland.nl/" },
+        { id: "gezraad",  label: "Gez.r.",   full: "Gezondheidsraad",             type: "Adviesorgaan · VWS", group: "vws", ring: 4, angle: 216, color: MIN_TINT.vws, shape: "circle", url: "https://www.gezondheidsraad.nl/" },
+        { id: "rvs",      label: "RVS",      full: "Raad voor Volksgezondheid & Samenleving", type: "Adviesorgaan · VWS", group: "vws", ring: 4, angle: 224, color: MIN_TINT.vws, shape: "circle", url: "https://www.raadrvs.nl/" },
+
+        // BZK
+        { id: "aivd",     label: "AIVD",     full: "Alg. Inlichtingen- en Veiligheidsdienst", type: "Dienst · BZK", group: "bzk", ring: 4, angle: 236, color: MIN_TINT.bzk, shape: "circle", url: "https://www.aivd.nl/" },
+        { id: "ap",       label: "AP",       full: "Autoriteit Persoonsgegevens", type: "ZBO · BZK",        group: "bzk", ring: 4, angle: 242, color: MIN_TINT.bzk, shape: "circle", url: "https://www.autoriteitpersoonsgegevens.nl/" },
+        { id: "pdirekt",  label: "P-Direkt", full: "P-Direkt",                    type: "Agentschap · BZK", group: "bzk", ring: 4, angle: 248, color: MIN_TINT.bzk, shape: "circle", url: "https://www.p-direkt.nl/" },
+        { id: "ubr",      label: "UBR",      full: "Uitvoeringsorg. Bedrijfsvoering Rijk", type: "Agentschap · BZK", group: "bzk", ring: 4, angle: 254, color: MIN_TINT.bzk, shape: "circle", url: "https://www.ubrijk.nl/" },
+        { id: "kiesraad", label: "Kiesraad", full: "Kiesraad",                    type: "ZBO · BZK",        group: "bzk", ring: 4, angle: 260, color: MIN_TINT.bzk, shape: "circle", url: "https://www.kiesraad.nl/" },
+        { id: "huurcom",  label: "Huurc.",   full: "Huurcommissie",               type: "ZBO · BZK",        group: "bzk", ring: 4, angle: 266, color: MIN_TINT.bzk, shape: "circle", url: "https://www.huurcommissie.nl/" },
+        { id: "brp",      label: "BRP",      full: "Basisregistratie Personen",   type: "Register · BZK",   group: "bzk", ring: 4, angle: 228, color: MIN_TINT.bzk, shape: "circle", url: "https://www.rvig.nl/brp" },
+        { id: "digid",    label: "DigiD",    full: "DigiD / MijnOverheid",        type: "Voorziening · BZK", group: "bzk", ring: 4, angle: 272, color: MIN_TINT.bzk, shape: "circle", url: "https://www.digid.nl/" },
       ];
 
-      // Edges: which nodes are linked (political line + client relationships for DICTU)
+      // Edges: politieke lijn + eigenaarschap + DICTU-keten
       const edges = [
-        // MP → all ministries
+        // MP → alle ministeries
         ["mp","az"], ["mp","buza"], ["mp","def"], ["mp","ezk"], ["mp","fin"], ["mp","ienw"],
         ["mp","jenv"], ["mp","lnv"], ["mp","ocw"], ["mp","szw"], ["mp","vws"], ["mp","bzk"],
-        // Ministries → bewindspersonen
+        // Ministeries → bewindspersonen
         ["ezk","aerdts"], ["ezk","ezkmin"], ["bzk","vdb"], ["bzk","bzkmin"], ["lnv","lnvmin"],
-        // Bewindspersonen / ministeries → agentschappen (digitaal)
+        // AZ
+        ["az","rvd"], ["az","dpc"],
+        // BuZa
+        ["buza","nlw"],
+        // Defensie
+        ["def","kmar"], ["def","jivc"], ["def","dmo"], ["def","dosco"], ["def","mivd"],
+        // EZK — digitale kern & uitvoerders
         ["aerdts","dictu"], ["aerdts","ndd"], ["aerdts","rdi"], ["aerdts","acm"],
-        ["ezk","rvo"], ["lnvmin","nvwa"], ["lnvmin","rvo"],
-        ["vdb","sscict"], ["vdb","logius"], ["vdb","ictu"], ["vdb","rvig"],
-        // Overige ministeries → agentschappen
-        ["fin","bd"], ["ienw","rws"], ["ienw","ilt"], ["jenv","ind"],
-        ["ocw","duo"], ["szw","uwv"], ["szw","svb"], ["vws","rivm"],
-        // DICTU → clients/used-by
+        ["ezk","rvo"], ["ezk","cbs"], ["ezk","sodm"], ["ezk","nea"], ["ezk","atr"], ["ezk","cpb"],
+        // Fin
+        ["fin","bd"], ["fin","douane"], ["fin","toeslagen"], ["fin","afm"], ["fin","adr"],
+        ["fin","dnb"], ["fin","domeinen"],
+        // IenW
+        ["ienw","rws"], ["ienw","ilt"], ["ienw","knmi"], ["ienw","rdw"], ["ienw","kadaster"],
+        ["ienw","lvnl"], ["ienw","anvs"], ["ienw","pbl"], ["ienw","stab"],
+        // JenV
+        ["jenv","politie"], ["jenv","om"], ["jenv","ind"], ["jenv","dji"], ["jenv","cjib"],
+        ["jenv","coa"], ["jenv","nfi"], ["jenv","dtv"], ["jenv","justid"], ["jenv","rvdr"],
+        // LNV
+        ["lnvmin","nvwa"], ["lnvmin","rvo"], ["lnv","sbb"],
+        // OCW
+        ["ocw","duo"], ["ocw","inspow"], ["ocw","rce"], ["ocw","kb"], ["ocw","natarch"],
+        ["ocw","nwo"], ["ocw","cito"], ["ocw","onderraad"],
+        // SZW
+        ["szw","uwv"], ["szw","svb"], ["szw","nla"], ["szw","ser"],
+        // VWS
+        ["vws","rivm"], ["vws","igj"], ["vws","nza"], ["vws","cak"], ["vws","ciz"],
+        ["vws","cbg"], ["vws","zin"], ["vws","gezraad"], ["vws","rvs"],
+        // BZK — bewindspersoon + eigenaarsdiensten
+        ["vdb","sscict"], ["vdb","logius"], ["vdb","ictu"], ["vdb","rvig"], ["vdb","pdirekt"],
+        ["bzk","rvb"], ["bzk","ubr"], ["bzk","aivd"], ["bzk","ap"], ["bzk","kiesraad"], ["bzk","huurcom"],
+        // DICTU → afnemers & diensten
         ["dictu","rvo"], ["dictu","nvwa"], ["dictu","acm"], ["dictu","cbs"],
-        ["dictu","sodm"], ["dictu","at"], ["dictu","nea"], ["dictu","rdi"],
-        // BZK digital services → consumers
+        ["dictu","sodm"], ["dictu","nea"], ["dictu","rdi"], ["dictu","atr"],
+        // BZK-voorzieningen → gebruik
         ["rvig","brp"], ["logius","digid"],
       ];
 
@@ -2162,24 +2301,35 @@
 
       // Node radius helper (matches rendering below). For squares this is half-side.
       function baseRadius(n) {
-        if (n.ring === 0) return 60;
-        if (n.ring === 1) return 24;
-        if (n.ring === 2) return 22;
-        if (n.ring === 3) return 24;
-        return 18;
+        if (n.ring === 0) return 75;
+        if (n.ring === 1) return 26;
+        if (n.ring === 2) return 20;
+        if (n.focus) return 34;
+        if (n.ring === 3) return 20;
+        return 17;
+      }
+      function maxRadius(n) {
+        if (n.ring === 0) return 90;
+        if (n.ring === 1) return 34;
+        if (n.ring === 2) return 26;
+        if (n.focus) return 38;
+        if (n.ring === 3) return 26;
+        return 22;
       }
       function labelFontSize(n) {
-        if (n.ring === 0) return 20;
-        if (n.ring === 1) return 11;
-        if (n.focus) return 12;
-        return 10;
+        if (n.ring === 0) return 22;
+        if (n.ring === 1) return 12;
+        if (n.ring === 2) return 10;
+        if (n.focus) return 13;
+        return 9;
       }
       function labelFontWeight(n) {
         if (n.focus) return "900";
         if (n.ring === 0) return "700";
-        return "600";
+        if (n.ring === 1) return "700";
+        return "700";
       }
-      // Measure each label so shapes are sized to fit their text
+      // Measure each label so shapes are sized to fit their text (gecapped per ring)
       nodes.forEach(n => {
         const t = document.createElementNS(SVG_NS, "text");
         t.setAttribute("font-size", labelFontSize(n));
@@ -2190,9 +2340,10 @@
         svg.appendChild(t);
         const bbox = t.getBBox();
         svg.removeChild(t);
-        const needed = bbox.width / 2 + 7;
+        const needed = bbox.width / 2 + 6;
         const base = n.r || baseRadius(n);
-        n.r = Math.max(base, needed);
+        const cap  = maxRadius(n);
+        n.r = Math.min(cap, Math.max(base, needed));
       });
       function nodeRadius(n) { return n.r || baseRadius(n); }
 
@@ -2238,7 +2389,7 @@
       const nodeEls = {};
       nodes.forEach(n => {
         const g = document.createElementNS(SVG_NS, "g");
-        g.setAttribute("class", "node" + (n.ring === 0 ? " center" : "") + (n.focus ? " dictu focus" : ""));
+        g.setAttribute("class", "node ring-" + n.ring + (n.ring === 0 ? " center" : "") + (n.focus ? " dictu focus" : "") + (n.group ? " g-" + n.group : ""));
         g.setAttribute("transform", `translate(${n.x} ${n.y})`);
         g.dataset.id = n.id;
         const radius = nodeRadius(n);
@@ -2257,22 +2408,17 @@
         }
         shape.setAttribute("fill", n.color);
         g.appendChild(shape);
-        // Label
+        // Label — maten en gewichten sync met labelFontSize/Weight()
         const txt = document.createElementNS(SVG_NS, "text");
         txt.textContent = n.label;
-        if (n.ring === 0) {
+        txt.setAttribute("font-size", String(labelFontSize(n)));
+        txt.setAttribute("font-weight", labelFontWeight(n));
+        if (n.ring <= 2 && !n.focus) {
+          // Donkere vullingen (MP, ministerie, bewindspersoon) → witte tekst
           txt.setAttribute("fill", "#fff");
-          txt.setAttribute("font-size", "20");
-        } else if (n.ring === 1) {
-          txt.setAttribute("fill", "#fff");
-          txt.setAttribute("font-size", "11");
-        } else if (n.focus) {
-          txt.setAttribute("fill", "#0b2844");
-          txt.setAttribute("font-size", "12");
-          txt.setAttribute("font-weight", "900");
         } else {
-          txt.setAttribute("fill", "#fff");
-          txt.setAttribute("font-size", "10");
+          // Pastel vullingen (ringen 3-4 + DICTU focus) → donkere tekst voor leesbaarheid
+          txt.setAttribute("fill", "#0b2844");
         }
         g.appendChild(txt);
         svg.appendChild(g);
@@ -2305,8 +2451,24 @@
       }
       function moveTip(e) {
         const rect = stage.getBoundingClientRect();
-        tip.style.left = (e.clientX - rect.left) + "px";
-        tip.style.top = (e.clientY - rect.top - 10) + "px";
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const tipRect = tip.getBoundingClientRect();
+        const tipW = tipRect.width || 200;
+        const tipH = tipRect.height || 80;
+        // Flip tooltip below the cursor if too close to the top edge
+        const flipDown = y < tipH + 20;
+        // Clamp horizontally so the tooltip stays inside the stage
+        const halfW = tipW / 2;
+        const clampedX = Math.max(halfW + 8, Math.min(x, rect.width - halfW - 8));
+        tip.style.left = clampedX + "px";
+        if (flipDown) {
+          tip.style.top = (y + 22) + "px";
+          tip.style.transform = "translate(-50%, 0)";
+        } else {
+          tip.style.top = (y - 10) + "px";
+          tip.style.transform = "translate(-50%, -110%)";
+        }
       }
       function hideTip() { tip.classList.remove("show"); }
 

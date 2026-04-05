@@ -1,0 +1,1344 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Machinery of Government — DICTU & de Nederlandse Rijksoverheid</title>
+    <meta
+      name="description"
+      content="Een interactieve kaart van DICTU binnen de Nederlandse Rijksoverheid — ontstaan, plek in EZK, bewindspersonen en verantwoordelijkheden na Kabinet-Jetten (2026)."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=RO+Serif:wght@400;700&family=RO+Sans:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ro-blue: #154273;
+        --ro-blue-dark: #0b2844;
+        --ro-blue-light: #e6eef5;
+        --ro-accent: #01689b;
+        --ro-yellow: #ffb612;
+        --ro-red: #d52b1e;
+        --ro-green: #39870c;
+        --ro-orange: #e17000;
+        --ro-grey-1: #f3f3f3;
+        --ro-grey-2: #d9d9d9;
+        --ro-grey-3: #8b8b8b;
+        --ro-grey-4: #535353;
+        --ro-ink: #1d1d1b;
+        --shadow-sm: 0 1px 2px rgba(11, 40, 68, 0.06), 0 1px 3px rgba(11, 40, 68, 0.1);
+        --shadow-md: 0 4px 6px rgba(11, 40, 68, 0.05), 0 10px 20px rgba(11, 40, 68, 0.08);
+        --shadow-lg: 0 10px 15px rgba(11, 40, 68, 0.06), 0 20px 40px rgba(11, 40, 68, 0.12);
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "RO Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+          sans-serif;
+        color: var(--ro-ink);
+        background: #fafafa;
+        line-height: 1.55;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "RO Serif", Georgia, serif;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--ro-blue-dark);
+      }
+
+      a {
+        color: var(--ro-accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Header */
+      .topbar {
+        background: var(--ro-blue);
+        border-bottom: 3px solid var(--ro-yellow);
+        padding: 10px 0;
+      }
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .logo-mark {
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border-radius: 4px;
+        display: grid;
+        place-items: center;
+        font-family: "RO Serif", serif;
+        font-weight: 700;
+        color: var(--ro-blue);
+        font-size: 20px;
+      }
+      .logo-text {
+        color: #fff;
+        font-size: 13px;
+        line-height: 1.2;
+      }
+      .logo-text strong {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      nav.site-nav {
+        background: #fff;
+        border-bottom: 1px solid var(--ro-grey-2);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow-sm);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 12px 0;
+      }
+      .nav-title {
+        font-family: "RO Serif", serif;
+        font-weight: 700;
+        color: var(--ro-blue-dark);
+        font-size: 17px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 4px;
+        list-style: none;
+        flex-wrap: wrap;
+      }
+      .nav-links a {
+        color: var(--ro-grey-4);
+        padding: 8px 14px;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.15s;
+      }
+      .nav-links a:hover {
+        background: var(--ro-blue-light);
+        color: var(--ro-blue);
+        text-decoration: none;
+      }
+
+      /* Hero */
+      .hero {
+        background: linear-gradient(135deg, var(--ro-blue) 0%, var(--ro-blue-dark) 100%);
+        color: #fff;
+        padding: 80px 0 100px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 182, 18, 0.12) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .hero-inner {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        backdrop-filter: blur(6px);
+      }
+      .hero-eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: var(--ro-yellow);
+        border-radius: 50%;
+      }
+      .hero h1 {
+        color: #fff;
+        font-size: clamp(32px, 4.5vw, 52px);
+        margin-bottom: 16px;
+      }
+      .hero p.lead {
+        font-size: 19px;
+        opacity: 0.92;
+        max-width: 600px;
+        margin-bottom: 28px;
+      }
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 36px;
+      }
+      .hero-stat {
+        border-left: 3px solid var(--ro-yellow);
+        padding-left: 14px;
+      }
+      .hero-stat .num {
+        font-family: "RO Serif", serif;
+        font-size: 32px;
+        font-weight: 700;
+        display: block;
+        line-height: 1;
+      }
+      .hero-stat .lbl {
+        font-size: 13px;
+        opacity: 0.8;
+        margin-top: 4px;
+      }
+      .hero-card {
+        background: #fff;
+        color: var(--ro-ink);
+        border-radius: var(--radius-lg);
+        padding: 28px;
+        box-shadow: var(--shadow-lg);
+      }
+      .hero-card h3 {
+        font-size: 18px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .hero-card h3::before {
+        content: "";
+        width: 4px;
+        height: 20px;
+        background: var(--ro-blue);
+        border-radius: 2px;
+      }
+      .quick-facts {
+        list-style: none;
+        display: grid;
+        gap: 12px;
+      }
+      .quick-facts li {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 14px;
+        font-size: 14px;
+        align-items: baseline;
+      }
+      .quick-facts .k {
+        color: var(--ro-grey-3);
+        font-weight: 500;
+      }
+      .quick-facts .v {
+        color: var(--ro-ink);
+      }
+
+      /* Sections */
+      section.block {
+        padding: 80px 0;
+      }
+      section.block.alt {
+        background: #fff;
+      }
+      .block-head {
+        max-width: 760px;
+        margin-bottom: 44px;
+      }
+      .block-label {
+        display: inline-block;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+        color: var(--ro-accent);
+        background: var(--ro-blue-light);
+        padding: 6px 12px;
+        border-radius: var(--radius-sm);
+        margin-bottom: 16px;
+      }
+      h2.block-title {
+        font-size: clamp(28px, 3.2vw, 38px);
+        margin-bottom: 14px;
+      }
+      .block-sub {
+        font-size: 17px;
+        color: var(--ro-grey-4);
+      }
+
+      /* Timeline */
+      .timeline {
+        position: relative;
+        padding-left: 32px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: var(--ro-grey-2);
+      }
+      .tl-item {
+        position: relative;
+        padding-bottom: 36px;
+      }
+      .tl-item:last-child {
+        padding-bottom: 0;
+      }
+      .tl-item::before {
+        content: "";
+        position: absolute;
+        left: -28px;
+        top: 6px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        border: 3px solid var(--ro-blue);
+        box-shadow: 0 0 0 3px #fff;
+      }
+      .tl-item.highlight::before {
+        background: var(--ro-yellow);
+        border-color: var(--ro-blue);
+      }
+      .tl-year {
+        font-family: "RO Serif", serif;
+        font-weight: 700;
+        font-size: 22px;
+        color: var(--ro-blue);
+        margin-bottom: 4px;
+      }
+      .tl-title {
+        font-weight: 700;
+        color: var(--ro-ink);
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+      .tl-body {
+        color: var(--ro-grey-4);
+        font-size: 15px;
+        max-width: 680px;
+      }
+
+      /* Orgchart */
+      .orgchart {
+        display: grid;
+        gap: 20px;
+      }
+      .org-level {
+        display: grid;
+        gap: 16px;
+      }
+      .org-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .org-card {
+        background: #fff;
+        border: 1px solid var(--ro-grey-2);
+        border-radius: var(--radius-md);
+        padding: 18px;
+        position: relative;
+        transition: all 0.2s;
+      }
+      .org-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--ro-accent);
+      }
+      .org-card .tag {
+        display: inline-block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 3px;
+        margin-bottom: 10px;
+      }
+      .tag.ministry {
+        background: #e8f1fb;
+        color: var(--ro-accent);
+      }
+      .tag.agency {
+        background: #fff4db;
+        color: #8a5a00;
+      }
+      .tag.dictu {
+        background: var(--ro-blue);
+        color: #fff;
+      }
+      .tag.service {
+        background: #ebf4e7;
+        color: var(--ro-green);
+      }
+      .org-card h4 {
+        font-family: "RO Sans", sans-serif;
+        font-size: 15px;
+        color: var(--ro-ink);
+        margin-bottom: 4px;
+      }
+      .org-card .desc {
+        font-size: 13px;
+        color: var(--ro-grey-4);
+      }
+      .org-card.focus {
+        border: 2px solid var(--ro-blue);
+        background: linear-gradient(
+          135deg,
+          var(--ro-blue) 0%,
+          var(--ro-blue-dark) 100%
+        );
+        color: #fff;
+      }
+      .org-card.focus h4,
+      .org-card.focus .desc {
+        color: #fff;
+      }
+      .org-card.focus .desc {
+        opacity: 0.85;
+      }
+      .org-connector {
+        text-align: center;
+        color: var(--ro-grey-3);
+        font-size: 18px;
+        margin: -4px 0;
+      }
+
+      /* People */
+      .people-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 28px;
+      }
+      .person-card {
+        background: #fff;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        border-top: 4px solid var(--ro-blue);
+        display: flex;
+        flex-direction: column;
+      }
+      .person-card.vvd {
+        border-top-color: #0a2d82;
+      }
+      .person-card.d66 {
+        border-top-color: #00a650;
+      }
+      .person-head {
+        padding: 24px 24px 16px;
+        border-bottom: 1px solid var(--ro-grey-1);
+      }
+      .person-top {
+        display: flex;
+        align-items: start;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+      .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--ro-blue), var(--ro-blue-dark));
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-family: "RO Serif", serif;
+        font-weight: 700;
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+      .person-card.d66 .avatar {
+        background: linear-gradient(135deg, #00a650, #007a3c);
+      }
+      .person-name {
+        font-family: "RO Serif", serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--ro-ink);
+        margin-bottom: 2px;
+      }
+      .person-role {
+        font-size: 14px;
+        color: var(--ro-grey-4);
+      }
+      .person-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        padding: 4px 10px;
+        border-radius: 3px;
+        margin-top: 8px;
+      }
+      .badge-vvd {
+        background: #e7ebf4;
+        color: #0a2d82;
+      }
+      .badge-d66 {
+        background: #e3f5ec;
+        color: #007a3c;
+      }
+      .person-ministry {
+        font-size: 13px;
+        color: var(--ro-grey-4);
+        margin-top: 8px;
+      }
+      .person-ministry strong {
+        color: var(--ro-ink);
+      }
+      .person-body {
+        padding: 20px 24px 24px;
+        flex: 1;
+      }
+      .person-body h5 {
+        font-family: "RO Sans", sans-serif;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--ro-grey-3);
+        margin: 16px 0 10px;
+        font-weight: 700;
+      }
+      .person-body h5:first-child {
+        margin-top: 0;
+      }
+      .resp-list {
+        list-style: none;
+        display: grid;
+        gap: 8px;
+      }
+      .resp-list li {
+        font-size: 14px;
+        color: var(--ro-grey-4);
+        padding-left: 20px;
+        position: relative;
+        line-height: 1.5;
+      }
+      .resp-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 8px;
+        height: 8px;
+        background: var(--ro-yellow);
+        border-radius: 2px;
+        transform: rotate(45deg);
+      }
+      .person-card.d66 .resp-list li::before {
+        background: #00a650;
+      }
+      .person-card.vvd .resp-list li::before {
+        background: #0a2d82;
+      }
+
+      /* DICTU tasks */
+      .tasks-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+      }
+      .task-card {
+        background: #fff;
+        border: 1px solid var(--ro-grey-2);
+        border-radius: var(--radius-md);
+        padding: 22px;
+        transition: all 0.2s;
+      }
+      .task-card:hover {
+        border-color: var(--ro-accent);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+      .task-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--ro-blue-light);
+        color: var(--ro-accent);
+        border-radius: var(--radius-sm);
+        display: grid;
+        place-items: center;
+        margin-bottom: 14px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .task-card h4 {
+        font-family: "RO Sans", sans-serif;
+        font-size: 15px;
+        margin-bottom: 6px;
+        color: var(--ro-ink);
+      }
+      .task-card p {
+        font-size: 13.5px;
+        color: var(--ro-grey-4);
+        line-height: 1.55;
+      }
+
+      /* Clients */
+      .clients {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        margin-top: 24px;
+      }
+      .client {
+        background: var(--ro-grey-1);
+        padding: 14px 16px;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ro-ink);
+        border-left: 3px solid var(--ro-accent);
+      }
+      .client small {
+        display: block;
+        font-weight: 400;
+        color: var(--ro-grey-3);
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      /* Shift diagram */
+      .shift {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 24px;
+        align-items: stretch;
+        margin-top: 28px;
+      }
+      .shift-box {
+        background: #fff;
+        border: 1px solid var(--ro-grey-2);
+        border-radius: var(--radius-md);
+        padding: 22px;
+      }
+      .shift-box h4 {
+        font-family: "RO Sans", sans-serif;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--ro-grey-3);
+        margin-bottom: 4px;
+      }
+      .shift-box .min {
+        font-family: "RO Serif", serif;
+        font-size: 22px;
+        color: var(--ro-blue-dark);
+        margin-bottom: 16px;
+      }
+      .shift-box ul {
+        list-style: none;
+        display: grid;
+        gap: 8px;
+      }
+      .shift-box li {
+        font-size: 13.5px;
+        color: var(--ro-grey-4);
+        padding-left: 16px;
+        position: relative;
+      }
+      .shift-box li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--ro-accent);
+        font-weight: 700;
+      }
+      .shift-arrow {
+        align-self: center;
+        font-size: 36px;
+        color: var(--ro-yellow);
+        font-weight: 900;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--ro-blue-dark);
+        color: #fff;
+        padding: 48px 0 28px;
+        margin-top: 60px;
+      }
+      footer .foot-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 32px;
+      }
+      footer h5 {
+        font-family: "RO Sans", sans-serif;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--ro-yellow);
+        margin-bottom: 14px;
+      }
+      footer p,
+      footer li {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.75);
+        line-height: 1.6;
+      }
+      footer ul {
+        list-style: none;
+        display: grid;
+        gap: 8px;
+      }
+      footer a {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      footer a:hover {
+        color: #fff;
+      }
+      .foot-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Responsive */
+      @media (max-width: 960px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .shift {
+          grid-template-columns: 1fr;
+        }
+        .shift-arrow {
+          transform: rotate(90deg);
+          text-align: center;
+        }
+        footer .foot-grid {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .foot-bottom {
+          flex-direction: column;
+          gap: 8px;
+        }
+      }
+      @media (max-width: 640px) {
+        section.block {
+          padding: 56px 0;
+        }
+        .hero {
+          padding: 48px 0 64px;
+        }
+        .hero-stats {
+          grid-template-columns: 1fr 1fr;
+        }
+        .nav-title {
+          font-size: 14px;
+        }
+        .nav-links {
+          gap: 0;
+        }
+        .nav-links a {
+          padding: 6px 10px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <div class="logo-mark">N</div>
+        <div class="logo-text">
+          <strong>Rijksoverheid</strong>
+          Machinery of Government — Verkenning
+        </div>
+      </div>
+    </div>
+
+    <nav class="site-nav">
+      <div class="container nav-inner">
+        <div class="nav-title">DICTU &mdash; Dienst ICT Uitvoering</div>
+        <ul class="nav-links">
+          <li><a href="#ontstaan">Ontstaan</a></li>
+          <li><a href="#organisatie">Plek in Rijk</a></li>
+          <li><a href="#bewindspersonen">Bewindspersonen</a></li>
+          <li><a href="#taken">Taken</a></li>
+          <li><a href="#verschuiving">Verschuiving 2026</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <span class="hero-eyebrow">Kabinet-Jetten &middot; 2026</span>
+          <h1>DICTU binnen de machinerie van de Nederlandse Rijksoverheid</h1>
+          <p class="lead">
+            De Dienst ICT Uitvoering (DICTU) is één van de grootste ICT-dienstverleners
+            binnen het Rijk. Ontstaan uit het ministerie van LNV, nu onderdeel van EZK,
+            en sinds 2026 politiek aangestuurd vanuit de nieuwe portefeuille Digitale
+            Economie en Soevereiniteit.
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="num">~1.700</span>
+              <span class="lbl">Professionals</span>
+            </div>
+            <div class="hero-stat">
+              <span class="num">1.500+</span>
+              <span class="lbl">Applicaties in beheer</span>
+            </div>
+            <div class="hero-stat">
+              <span class="num">3</span>
+              <span class="lbl">Vestigingen (Den Haag, Assen, Zwolle)</span>
+            </div>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <h3>Kerngegevens DICTU</h3>
+          <ul class="quick-facts">
+            <li>
+              <span class="k">Type</span>
+              <span class="v">Agentschap (baten-lastendienst)</span>
+            </li>
+            <li>
+              <span class="k">Moederdepart.</span>
+              <span class="v">Ministerie van Economische Zaken &amp; Klimaat</span>
+            </li>
+            <li>
+              <span class="k">Opgericht</span>
+              <span class="v">2005 (agentschap per 1 jan 2008)</span>
+            </li>
+            <li>
+              <span class="k">Eigenaar</span>
+              <span class="v">pSG ministerie van EZK</span>
+            </li>
+            <li>
+              <span class="k">Motto</span>
+              <span class="v">&ldquo;DICTU maakt dat het werkt&rdquo;</span>
+            </li>
+            <li>
+              <span class="k">Opdrachtgevers</span>
+              <span class="v">EZK, LNV, RVO, NVWA, AT, ACM &amp; meer</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="block" id="ontstaan">
+      <div class="container">
+        <div class="block-head">
+          <span class="block-label">Ontstaansgeschiedenis</span>
+          <h2 class="block-title">Hoe DICTU is ontstaan</h2>
+          <p class="block-sub">
+            DICTU is in 2005 ontstaan door de versnipperde ICT-taken binnen het
+            ministerie van LNV te bundelen in één uitvoerende dienst. Doel: beleid en
+            uitvoering scheiden, en schaalvoordelen bereiken op applicaties,
+            werkplekken en infrastructuur.
+          </p>
+        </div>
+        <div class="timeline">
+          <div class="tl-item highlight">
+            <div class="tl-year">2005</div>
+            <div class="tl-title">Bundeling van LNV-ICT &mdash; oprichting DICTU</div>
+            <div class="tl-body">
+              De uitvoerende ICT-taken van directies en diensten van het ministerie
+              van LNV worden samengebracht in één uitvoerende dienst. De scheiding
+              tussen beleid en uitvoering vormt de kern van de oprichting.
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2007</div>
+            <div class="tl-title">Proefjaar baten-lastendienst</div>
+            <div class="tl-body">
+              Samen met opdrachtgevers binnen LNV wordt gewerkt aan het verandertraject
+              naar een volwaardig agentschap met eigen begroting en bedrijfseconomische
+              sturing.
+            </div>
+          </div>
+          <div class="tl-item highlight">
+            <div class="tl-year">1 jan 2008</div>
+            <div class="tl-title">DICTU wordt formeel agentschap</div>
+            <div class="tl-body">
+              De Dienst ICT Uitvoering wordt formeel baten-lastendienst: werkt op
+              basis van tarieven per afgenomen dienst, met eigen balans en resultaat.
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2010</div>
+            <div class="tl-title">Samenvoeging LNV en EZ &rarr; DICTU naar EZ</div>
+            <div class="tl-body">
+              Als gevolg van de samenvoeging van het ministerie van LNV met EZ
+              verhuist DICTU mee naar het ministerie van Economische Zaken (later
+              EZK). DICTU blijft diensten leveren aan EZ, LNV, RVO, NVWA en andere
+              uitvoerders.
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2016 &mdash; 2022</div>
+            <div class="tl-title">Doorlichtingen &amp; professionalisering</div>
+            <div class="tl-body">
+              Twee beleidsdoorlichtingen (2016, 2022) leggen de basis voor verdere
+              professionalisering: herijking van de rolverdeling
+              eigenaar &minus; opdrachtgever &minus; opdrachtnemer, aanscherping
+              portfoliomanagement en investeringen in cybersecurity en cloud.
+            </div>
+          </div>
+          <div class="tl-item highlight">
+            <div class="tl-year">2026</div>
+            <div class="tl-title">Nieuwe politieke aansturing onder Kabinet-Jetten</div>
+            <div class="tl-body">
+              Het Kabinet-Jetten verplaatst de coördinatie van digitale zaken van BZK
+              naar EZK. DICTU blijft onder EZK en wordt daarmee politiek aangestuurd
+              door de nieuwe staatssecretaris Digitale Economie en Soevereiniteit,
+              Willemijn Aerdts (D66).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block alt" id="organisatie">
+      <div class="container">
+        <div class="block-head">
+          <span class="block-label">Plek in de Rijksdienst</span>
+          <h2 class="block-title">Waar zit DICTU in de machinerie?</h2>
+          <p class="block-sub">
+            DICTU is één van de uitvoeringsagentschappen van EZK. De politieke
+            aansturing loopt via de staatssecretaris; het eigenaarschap ligt bij de
+            plaatsvervangend secretaris-generaal.
+          </p>
+        </div>
+        <div class="orgchart">
+          <div class="org-level">
+            <div class="org-cards" style="grid-template-columns: 1fr">
+              <div class="org-card">
+                <span class="tag ministry">Minister-President</span>
+                <h4>Kabinet-Jetten (2026&ndash;)</h4>
+                <p class="desc">Minister-President Rob Jetten (D66) &middot; coalitie D66&thinsp;/&thinsp;GL-PvdA&thinsp;/&thinsp;VVD&thinsp;/&thinsp;CDA</p>
+              </div>
+            </div>
+          </div>
+          <div class="org-connector">&#x2193;</div>
+          <div class="org-level">
+            <div class="org-cards" style="grid-template-columns: 1fr 1fr">
+              <div class="org-card">
+                <span class="tag ministry">Ministerie</span>
+                <h4>Economische Zaken &amp; Klimaat (EZK)</h4>
+                <p class="desc">
+                  Vakdepartement met o.a. Digitale Economie, Innovatie,
+                  Mededinging en Industrie. Sinds 2026 trekker van het digitaliseringsbeleid.
+                </p>
+              </div>
+              <div class="org-card">
+                <span class="tag ministry">Ministerie</span>
+                <h4>Binnenlandse Zaken &amp; Koninkrijksrelaties (BZK)</h4>
+                <p class="desc">
+                  Blijft verantwoordelijk voor CIO-Rijk, rijksbrede informatieveiligheid,
+                  identiteitsmanagement en werkplekvoorzieningen.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="org-connector">&#x2193;</div>
+          <div class="org-level">
+            <div class="org-cards">
+              <div class="org-card focus">
+                <span class="tag dictu">Agentschap &middot; EZK</span>
+                <h4>DICTU — Dienst ICT Uitvoering</h4>
+                <p class="desc">
+                  ICT-ontwikkeling, beheer en exploitatie voor EZK, LNV en hun
+                  uitvoeringsorganisaties. ~1.700 medewerkers, 1.500+ applicaties.
+                </p>
+              </div>
+              <div class="org-card">
+                <span class="tag agency">Agentschap &middot; EZK</span>
+                <h4>Nederlandse Digitale Dienst</h4>
+                <p class="desc">
+                  Nieuwe dienst onder EZK voor burgergerichte digitale producten &amp;
+                  Digitale Wallet.
+                </p>
+              </div>
+              <div class="org-card">
+                <span class="tag service">Shared service &middot; BZK</span>
+                <h4>SSC-ICT</h4>
+                <p class="desc">
+                  Rijksbrede werkplek- en basisinfrastructuurdienst voor
+                  kerndepartementen.
+                </p>
+              </div>
+              <div class="org-card">
+                <span class="tag service">Agentschap &middot; BZK</span>
+                <h4>Logius &amp; ICTU</h4>
+                <p class="desc">
+                  Beheer generieke digitale infrastructuur (DigiD, MijnOverheid) en
+                  programma-uitvoering.
+                </p>
+              </div>
+              <div class="org-card">
+                <span class="tag service">Uitvoeringsorg. &middot; BZK</span>
+                <h4>RvIG</h4>
+                <p class="desc">
+                  Rijksdienst voor Identiteitsgegevens: paspoorten, ID-kaarten, BRP.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="bewindspersonen">
+      <div class="container">
+        <div class="block-head">
+          <span class="block-label">Bewindspersonen</span>
+          <h2 class="block-title">Wie zijn Eric van der Burg &amp; Willemijn Aerdts?</h2>
+          <p class="block-sub">
+            Het digitale dossier is in het Kabinet-Jetten gesplitst over twee
+            staatssecretarissen: de &ldquo;agile overheid&rdquo; bij BZK en de
+            &ldquo;digitale economie &amp; soevereiniteit&rdquo; bij EZK. DICTU valt
+            politiek onder laatstgenoemde, maar werkt operationeel met beide.
+          </p>
+        </div>
+        <div class="people-grid">
+          <article class="person-card vvd">
+            <header class="person-head">
+              <div class="person-top">
+                <div class="avatar">EB</div>
+                <div>
+                  <div class="person-name">Eric van der Burg</div>
+                  <div class="person-role">Staatssecretaris Koninkrijksrelaties &amp; Slagvaardige Overheid</div>
+                  <span class="person-badge badge-vvd">VVD</span>
+                  <div class="person-ministry">
+                    Ministerie: <strong>Binnenlandse Zaken en Koninkrijksrelaties (BZK)</strong>
+                  </div>
+                </div>
+              </div>
+            </header>
+            <div class="person-body">
+              <h5>Wat hij gaat doen</h5>
+              <ul class="resp-list">
+                <li>
+                  Maakt de overheid &ldquo;slagvaardiger&rdquo;: stuurt op
+                  regeldrukvermindering (doel: ~500 regels minder).
+                </li>
+                <li>
+                  Bewaakt de rijksbrede IT-governance en informatieveiligheid vanuit
+                  CIO-Rijk.
+                </li>
+                <li>
+                  Coördineert AI-gebruik binnen de Rijksdienst en open-government
+                  transparantie.
+                </li>
+                <li>
+                  Aanspreekpunt voor Koninkrijksrelaties met de Caribische landen.
+                </li>
+              </ul>
+              <h5>Verantwoordelijkheden (portefeuille)</h5>
+              <ul class="resp-list">
+                <li><strong>CIO-Rijk</strong> &mdash; rijksbreed IT-beleid en -sturing</li>
+                <li><strong>SSC-ICT</strong> &mdash; rijksbrede werkplek &amp; infrastructuur</li>
+                <li>
+                  <strong>Identiteitsmanagement</strong> &mdash; paspoort, ID-kaart,
+                  BRP (via <strong>RvIG</strong>)
+                </li>
+                <li><strong>Logius</strong> en <strong>ICTU</strong></li>
+                <li>Informatieveiligheid voor (rijks)overheid</li>
+                <li>Digitale toegankelijkheid &amp; burgergerichte dienstverlening</li>
+                <li>AI-coördinatie binnen de Rijksdienst</li>
+                <li>Open government &amp; transparantieprogramma&rsquo;s</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="person-card d66">
+            <header class="person-head">
+              <div class="person-top">
+                <div class="avatar">WA</div>
+                <div>
+                  <div class="person-name">Willemijn Aerdts</div>
+                  <div class="person-role">Staatssecretaris Digitale Economie &amp; Soevereiniteit</div>
+                  <span class="person-badge badge-d66">D66</span>
+                  <div class="person-ministry">
+                    Ministerie: <strong>Economische Zaken en Klimaat (EZK)</strong>
+                  </div>
+                </div>
+              </div>
+            </header>
+            <div class="person-body">
+              <h5>Wat zij gaat doen</h5>
+              <ul class="resp-list">
+                <li>
+                  Maakt Nederland minder afhankelijk van buitenlandse (Amerikaanse en
+                  Chinese) techbedrijven &mdash; digitale soevereiniteit.
+                </li>
+                <li>
+                  Positioneert digitalisering als motor voor innovatie en
+                  economische groei.
+                </li>
+                <li>
+                  Voert de <strong>Nationale Digitaliseringsstrategie (NDS)</strong> uit.
+                </li>
+                <li>
+                  Leidt het Europees en internationaal digitaliseringsbeleid van Nederland.
+                </li>
+              </ul>
+              <h5>Verantwoordelijkheden (portefeuille)</h5>
+              <ul class="resp-list">
+                <li><strong>Digitale economie</strong> &amp; digitale infrastructuur</li>
+                <li>
+                  Coördinatie <strong>digitalisering</strong> &amp; digitale
+                  <strong>soevereiniteit</strong>
+                </li>
+                <li><strong>Digitale overheid</strong>, Digitale Wallet, Open data</li>
+                <li><strong>Nationale Digitaliseringsstrategie (NDS)</strong></li>
+                <li><strong>Nederlandse Digitale Dienst</strong></li>
+                <li>
+                  AI, data, cloud, cybersecurity-industrie, startups &amp; scale-ups
+                </li>
+                <li>Europees en internationaal digitaliseringsbeleid</li>
+                <li><strong>DICTU</strong> (als agentschap onder EZK)</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="block alt" id="taken">
+      <div class="container">
+        <div class="block-head">
+          <span class="block-label">De taak van DICTU</span>
+          <h2 class="block-title">Wat DICTU doet in dit geheel</h2>
+          <p class="block-sub">
+            DICTU is de ICT-uitvoerder van EZK en LNV: ontwikkelt, beheert en
+            exploiteert de applicaties, werkplekken en datavoorzieningen waarmee
+            subsidies, inspecties, vergunningen en registers daadwerkelijk werken.
+          </p>
+        </div>
+        <div class="tasks-grid">
+          <div class="task-card">
+            <div class="task-icon">&#x3C;/&#x3E;</div>
+            <h4>App Services</h4>
+            <p>
+              Ontwikkeling en beheer van bedrijfsvoerings- en primaire applicaties
+              voor EZK, LNV, RVO en NVWA.
+            </p>
+          </div>
+          <div class="task-card">
+            <div class="task-icon">&#x25A6;</div>
+            <h4>Workplace Services</h4>
+            <p>
+              Digitale werkplekken, end-user computing en collaboratie voor
+              departementen en uitvoeringsorganisaties.
+            </p>
+          </div>
+          <div class="task-card">
+            <div class="task-icon">&#x1F5FA;</div>
+            <h4>Geo-informatiesystemen</h4>
+            <p>
+              GIS-platforms voor onder meer landbouw, natuur, visserij en
+              ruimtelijke inspecties.
+            </p>
+          </div>
+          <div class="task-card">
+            <div class="task-icon">&#x1F511;</div>
+            <h4>Identity &amp; Access</h4>
+            <p>
+              IAM-diensten voor ambtenaren en bedrijven die met EZK/LNV-applicaties
+              werken.
+            </p>
+          </div>
+          <div class="task-card">
+            <div class="task-icon">&#x20AC;</div>
+            <h4>Subsidiesystemen</h4>
+            <p>
+              Uitvoerings-IT achter subsidieregelingen (via RVO) &mdash; van
+              aanvraag tot verantwoording.
+            </p>
+          </div>
+          <div class="task-card">
+            <div class="task-icon">&#x1F4DC;</div>
+            <h4>Registers</h4>
+            <p>
+              Beheer van landelijke registers en datastores op het terrein van
+              economie, landbouw en natuur.
+            </p>
+          </div>
+          <div class="task-card">
+            <div class="task-icon">&#x1F310;</div>
+            <h4>Web &amp; API Services</h4>
+            <p>
+              Publicatieplatformen, websites, apps en API-koppelingen voor
+              overheidsdienstverlening.
+            </p>
+          </div>
+          <div class="task-card">
+            <div class="task-icon">&#x1F6E1;</div>
+            <h4>Security &amp; Cloud</h4>
+            <p>
+              Rijks-cloud, cybersecurity-monitoring en compliance voor
+              EZK-ketendienstverlening.
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 48px; font-size: 20px; color: var(--ro-blue-dark);">
+          Belangrijkste opdrachtgevers
+        </h3>
+        <div class="clients">
+          <div class="client">EZK <small>Moederdepartement</small></div>
+          <div class="client">LNV <small>Landbouw, Natuur, Voedselkwaliteit</small></div>
+          <div class="client">RVO <small>Rijksdienst voor Ondernemend Nederland</small></div>
+          <div class="client">NVWA <small>Voedsel &amp; Warenautoriteit</small></div>
+          <div class="client">Agentschap Telecom <small>RDI</small></div>
+          <div class="client">ACM <small>Autoriteit Consument &amp; Markt</small></div>
+          <div class="client">SodM <small>Staatstoezicht op de Mijnen</small></div>
+          <div class="client">CBS <small>Centraal Bureau voor de Statistiek</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="verschuiving">
+      <div class="container">
+        <div class="block-head">
+          <span class="block-label">Kabinet-Jetten &middot; 2026</span>
+          <h2 class="block-title">De verschuiving: digitale zaken van BZK naar EZK</h2>
+          <p class="block-sub">
+            Met het aantreden van Kabinet-Jetten verhuist het zwaartepunt van het
+            digitaliseringsbeleid van BZK naar EZK. De rijksbrede IT-sturing blijft
+            wél bij BZK. Voor DICTU betekent het: zelfde agentschap, nieuwe politieke
+            opdrachtgever.
+          </p>
+        </div>
+        <div class="shift">
+          <div class="shift-box">
+            <h4>Nieuw bij &mdash;</h4>
+            <div class="min">EZK &middot; Staatssecretaris Aerdts</div>
+            <ul>
+              <li>Coördinatie digitalisering &amp; soevereiniteit</li>
+              <li>Digitale economie en infrastructuur</li>
+              <li>Digitale overheid, Digitale Wallet, Open data</li>
+              <li>Nationale Digitaliseringsstrategie (NDS)</li>
+              <li>Nederlandse Digitale Dienst</li>
+              <li>Europees digitaliseringsbeleid</li>
+              <li>Aansturing DICTU (via eigenaar pSG EZK)</li>
+            </ul>
+          </div>
+          <div class="shift-arrow">&rarr;</div>
+          <div class="shift-box">
+            <h4>Blijft bij &mdash;</h4>
+            <div class="min">BZK &middot; Staatssecretaris Van der Burg</div>
+            <ul>
+              <li>CIO-Rijk &amp; rijksbrede IT-governance</li>
+              <li>SSC-ICT (werkplek &amp; infra)</li>
+              <li>Informatieveiligheid (rijks)overheid</li>
+              <li>Identiteitsmanagement &amp; RvIG</li>
+              <li>Logius &amp; ICTU</li>
+              <li>Regeldrukvermindering &amp; open government</li>
+              <li>AI-coördinatie Rijksdienst</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="foot-grid">
+          <div>
+            <h5>Over deze pagina</h5>
+            <p>
+              Interactieve kaart van DICTU binnen de Nederlandse Rijksoverheid, met
+              de verschuiving van digitale zaken onder Kabinet-Jetten (2026) en de
+              nieuwe taakverdeling tussen de staatssecretarissen Aerdts (EZK) en
+              Van der Burg (BZK).
+            </p>
+          </div>
+          <div>
+            <h5>Bronnen</h5>
+            <ul>
+              <li><a href="https://www.dictu.nl/" target="_blank" rel="noopener">dictu.nl</a></li>
+              <li><a href="https://www.rijksoverheid.nl/regering/over-de-regering/kabinetten-sinds-1945/kabinet-jetten" target="_blank" rel="noopener">Rijksoverheid &middot; Kabinet-Jetten</a></li>
+              <li><a href="https://www.rijksoverheid.nl/regering/bewindspersonen/eric-van-der-burg" target="_blank" rel="noopener">Profiel Eric van der Burg</a></li>
+              <li><a href="https://www.rijksoverheid.nl/regering/bewindspersonen/willemijn-aerdts" target="_blank" rel="noopener">Profiel Willemijn Aerdts</a></li>
+              <li><a href="https://www.computable.nl/2026/02/24/kabinet-jetten-digitale-zaken-verhuist-van-bzk-naar-ezk/" target="_blank" rel="noopener">Computable &middot; Digitale zaken van BZK naar EZK</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5>Geïnspireerd door</h5>
+            <ul>
+              <li>
+                <a href="https://machinery-of-government.vercel.app/" target="_blank" rel="noopener">
+                  Machinery of Government (UK)
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instituteforgovernment.org.uk/explainer/machinery-government-changes" target="_blank" rel="noopener">
+                  Institute for Government
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <div>&copy; 2026 &middot; Verkenning, niet-officiële visualisatie.</div>
+          <div>Gebouwd met HTML &amp; CSS &middot; Rijksoverheid-inspired design</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

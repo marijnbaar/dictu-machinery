@@ -86,58 +86,28 @@
         padding: 0 24px;
       }
 
-      /* Header — Rijksoverheid/DICTU huisstijl */
+      /* Header — officieel DICTU logo */
       .site-header {
         background: #fff;
         border-bottom: 1px solid var(--ro-grey-2);
-        padding: 14px 0;
+        padding: 10px 0;
       }
       .site-header-inner {
         display: flex;
-        align-items: stretch;
+        align-items: center;
       }
       .brand {
-        display: flex;
-        align-items: stretch;
+        display: inline-block;
         text-decoration: none;
-        color: inherit;
+        line-height: 0;
       }
-      .brand-mark {
-        background: var(--ro-blue);
-        padding: 10px 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-      .brand-mark svg {
-        width: 30px;
-        height: 42px;
+      .brand-logo {
+        height: 72px;
+        width: auto;
         display: block;
       }
-      .brand-text {
-        padding: 4px 18px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        line-height: 1.25;
-      }
-      .brand-text strong {
-        font-family: "RO Serif", serif;
-        font-weight: 700;
-        font-size: 17px;
-        color: var(--ro-ink);
-      }
-      .brand-text em {
-        font-family: "RO Serif", serif;
-        font-style: italic;
-        font-size: 13px;
-        color: var(--ro-grey-4);
-        margin-top: 1px;
-      }
-      @media (max-width: 500px) {
-        .brand-text strong { font-size: 15px; }
-        .brand-text em { font-size: 12px; }
+      @media (max-width: 600px) {
+        .brand-logo { height: 56px; }
       }
 
       nav.site-nav {
@@ -1113,26 +1083,13 @@
     <header class="site-header">
       <div class="container site-header-inner">
         <a class="brand" href="https://www.dictu.nl/" aria-label="DICTU — Dienst ICT Uitvoering">
-          <div class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
-              <!-- Kroon -->
-              <path d="M 6 16 L 10 8 L 14 14 L 20 4 L 26 14 L 30 8 L 34 16 Z" fill="#fff"/>
-              <rect x="6" y="16" width="28" height="3.5" rx="0.5" fill="#fff"/>
-              <circle cx="20" cy="3" r="1.6" fill="#fff"/>
-              <circle cx="10" cy="7" r="1" fill="#fff"/>
-              <circle cx="30" cy="7" r="1" fill="#fff"/>
-              <!-- Schild -->
-              <path d="M 12 22 L 28 22 L 28 38 Q 28 45 20 50 Q 12 45 12 38 Z" fill="#fff"/>
-              <!-- Schildstrepen (blauw) -->
-              <rect x="15" y="26" width="10" height="1.6" fill="#154273"/>
-              <rect x="15" y="30" width="10" height="1.6" fill="#154273"/>
-              <rect x="15" y="34" width="10" height="1.6" fill="#154273"/>
-            </svg>
-          </div>
-          <div class="brand-text">
-            <strong>Dienst ICT Uitvoering</strong>
-            <em>Ministerie van Economische Zaken</em>
-          </div>
+          <img
+            class="brand-logo"
+            src="dictu-logo.png"
+            alt="Dienst ICT Uitvoering — Ministerie van Economische Zaken"
+            width="840"
+            height="234"
+          />
         </a>
       </div>
     </header>

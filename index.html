@@ -40,6 +40,11 @@
         --radius-sm: 4px;
         --radius-md: 8px;
         --radius-lg: 12px;
+        --ease: cubic-bezier(0.22, 0.9, 0.3, 1);
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        --t-fast: 0.15s;
+        --t-med: 0.25s;
+        --t-slow: 0.4s;
       }
 
       * {
@@ -95,16 +100,25 @@
       .site-header-inner {
         display: flex;
         align-items: center;
+        justify-content: center;
       }
       .brand {
         display: inline-block;
         text-decoration: none;
         line-height: 0;
+        transition: transform var(--t-med) var(--ease);
+      }
+      .brand:hover {
+        transform: translateX(2px);
       }
       .brand-logo {
         height: 72px;
         width: auto;
         display: block;
+        transition: filter var(--t-med) var(--ease);
+      }
+      .brand:hover .brand-logo {
+        filter: drop-shadow(0 2px 8px rgba(21, 66, 115, 0.2));
       }
       @media (max-width: 600px) {
         .brand-logo { height: 56px; }
@@ -121,7 +135,7 @@
       .nav-inner {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         gap: 24px;
         padding: 12px 0;
       }
@@ -143,12 +157,29 @@
         border-radius: var(--radius-sm);
         font-size: 14px;
         font-weight: 500;
-        transition: all 0.15s;
+        position: relative;
+        transition: color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 4px;
+        height: 2px;
+        background: var(--ro-blue);
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform var(--t-med) var(--ease-out);
+        border-radius: 2px;
       }
       .nav-links a:hover {
         background: var(--ro-blue-light);
         color: var(--ro-blue);
         text-decoration: none;
+      }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
       }
 
       /* Hero */
@@ -199,6 +230,11 @@
         height: 8px;
         background: var(--ro-yellow);
         border-radius: 50%;
+        animation: dot-pulse 2s var(--ease) infinite;
+      }
+      @keyframes dot-pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(255, 182, 18, 0.6); }
+        50% { box-shadow: 0 0 0 6px rgba(255, 182, 18, 0); }
       }
       .hero h1 {
         color: #fff;
@@ -220,6 +256,27 @@
       .hero-stat {
         border-left: 3px solid var(--ro-yellow);
         padding-left: 14px;
+        position: relative;
+        transition: padding-left var(--t-med) var(--ease);
+        cursor: default;
+      }
+      .hero-stat::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--ro-yellow);
+        transform: scaleY(1);
+        transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease);
+        transform-origin: top center;
+      }
+      .hero-stat:hover {
+        padding-left: 20px;
+      }
+      .hero-stat:hover::before {
+        box-shadow: 0 0 16px rgba(255, 182, 18, 0.5);
       }
       .hero-stat .num {
         font-family: "RO Serif", serif;
@@ -227,11 +284,19 @@
         font-weight: 700;
         display: block;
         line-height: 1;
+        transition: color var(--t-med) var(--ease);
+      }
+      .hero-stat:hover .num {
+        color: var(--ro-yellow);
       }
       .hero-stat .lbl {
         font-size: 13px;
         opacity: 0.8;
         margin-top: 4px;
+        transition: opacity var(--t-med) var(--ease);
+      }
+      .hero-stat:hover .lbl {
+        opacity: 1;
       }
       .hero-card {
         background: #fff;
@@ -239,6 +304,11 @@
         border-radius: var(--radius-lg);
         padding: 28px;
         box-shadow: var(--shadow-lg);
+        transition: transform var(--t-slow) var(--ease-out), box-shadow var(--t-slow) var(--ease);
+      }
+      .hero-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(11, 40, 68, 0.18), 0 8px 16px rgba(11, 40, 68, 0.1);
       }
       .hero-card h3 {
         font-size: 18px;
@@ -265,6 +335,26 @@
         color: var(--ro-blue-dark);
         font-weight: 700;
         position: relative;
+        overflow: hidden;
+      }
+      .hero-motto::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.5),
+          transparent
+        );
+        transition: left var(--t-slow) var(--ease);
+        pointer-events: none;
+      }
+      .hero-card:hover .hero-motto::after {
+        left: 140%;
       }
       .hero-motto::before {
         content: "\201C";
@@ -295,13 +385,16 @@
         font-weight: 600;
         border-radius: 3px;
         text-decoration: none;
-        transition: background 0.15s, color 0.15s;
+        transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease),
+          transform var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease);
         border: 1px solid transparent;
       }
       .client-chips a:hover {
         background: var(--ro-accent);
         color: #fff;
         text-decoration: none;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(1, 104, 155, 0.25);
       }
       .client-chips .more {
         color: var(--ro-grey-3);
@@ -378,6 +471,7 @@
       .tl-item {
         position: relative;
         padding-bottom: 36px;
+        cursor: default;
       }
       .tl-item:last-child {
         padding-bottom: 0;
@@ -393,10 +487,17 @@
         background: #fff;
         border: 3px solid var(--ro-blue);
         box-shadow: 0 0 0 3px #fff;
+        transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease),
+          background var(--t-med) var(--ease);
       }
       .tl-item.highlight::before {
         background: var(--ro-yellow);
         border-color: var(--ro-blue);
+      }
+      .tl-item:hover::before {
+        transform: scale(1.4);
+        background: var(--ro-yellow);
+        box-shadow: 0 0 0 3px #fff, 0 0 0 8px rgba(255, 182, 18, 0.25);
       }
       .tl-year {
         font-family: "RO Serif", serif;
@@ -404,6 +505,13 @@
         font-size: 22px;
         color: var(--ro-blue);
         margin-bottom: 4px;
+        transition: color var(--t-med) var(--ease), transform var(--t-med) var(--ease-out);
+        display: inline-block;
+        transform-origin: left center;
+      }
+      .tl-item:hover .tl-year {
+        color: var(--ro-blue-dark);
+        transform: translateX(4px);
       }
       .tl-title {
         font-weight: 700;
@@ -437,12 +545,33 @@
         border-radius: var(--radius-md);
         padding: 18px;
         position: relative;
-        transition: all 0.2s;
+        overflow: hidden;
+        transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease),
+          border-color var(--t-med) var(--ease);
+      }
+      .org-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--ro-accent);
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform var(--t-med) var(--ease-out);
       }
       .org-card:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
         border-color: var(--ro-accent);
+      }
+      .org-card:hover::before {
+        transform: scaleX(1);
+      }
+      .org-card.focus:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 20px 40px rgba(21, 66, 115, 0.3);
       }
       .org-card .tag {
         display: inline-block;
@@ -517,6 +646,14 @@
         border-top: 4px solid var(--ro-blue);
         display: flex;
         flex-direction: column;
+        transition: transform var(--t-slow) var(--ease-out),
+          box-shadow var(--t-slow) var(--ease),
+          border-top-width var(--t-med) var(--ease);
+      }
+      .person-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 48px rgba(11, 40, 68, 0.18),
+          0 8px 16px rgba(11, 40, 68, 0.08);
       }
       .person-card.vvd {
         border-top-color: #0a2d82;
@@ -546,6 +683,15 @@
         font-weight: 700;
         font-size: 24px;
         flex-shrink: 0;
+        transition: transform var(--t-slow) var(--ease-out),
+          box-shadow var(--t-slow) var(--ease);
+      }
+      .person-card:hover .avatar {
+        transform: rotate(-6deg) scale(1.05);
+        box-shadow: 0 8px 20px rgba(21, 66, 115, 0.3);
+      }
+      .person-card.d66:hover .avatar {
+        box-shadow: 0 8px 20px rgba(0, 166, 80, 0.3);
       }
       .person-card.d66 .avatar {
         background: linear-gradient(135deg, #00a650, #007a3c);
@@ -556,6 +702,19 @@
         font-weight: 700;
         color: var(--ro-ink);
         margin-bottom: 2px;
+      }
+      .person-name a {
+        color: inherit;
+        text-decoration: none;
+        background-image: linear-gradient(currentColor, currentColor);
+        background-size: 0% 1px;
+        background-repeat: no-repeat;
+        background-position: 0 100%;
+        transition: background-size var(--t-med) var(--ease), color var(--t-fast) var(--ease);
+      }
+      .person-name a:hover {
+        color: var(--ro-blue);
+        background-size: 100% 1px;
       }
       .person-role {
         font-size: 14px;
@@ -616,6 +775,11 @@
         padding-left: 20px;
         position: relative;
         line-height: 1.5;
+        transition: color var(--t-fast) var(--ease), padding-left var(--t-med) var(--ease-out);
+      }
+      .resp-list li:hover {
+        color: var(--ro-ink);
+        padding-left: 24px;
       }
       .resp-list li::before {
         content: "";
@@ -627,6 +791,10 @@
         background: var(--ro-yellow);
         border-radius: 2px;
         transform: rotate(45deg);
+        transition: transform var(--t-med) var(--ease-out), background var(--t-med) var(--ease);
+      }
+      .resp-list li:hover::before {
+        transform: rotate(135deg) scale(1.2);
       }
       .person-card.d66 .resp-list li::before {
         background: #00a650;
@@ -646,12 +814,31 @@
         border: 1px solid var(--ro-grey-2);
         border-radius: var(--radius-md);
         padding: 22px;
-        transition: all 0.2s;
+        position: relative;
+        overflow: hidden;
+        transition: border-color var(--t-med) var(--ease),
+          box-shadow var(--t-med) var(--ease),
+          transform var(--t-med) var(--ease-out);
+      }
+      .task-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ro-accent), var(--ro-yellow));
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform var(--t-slow) var(--ease-out);
       }
       .task-card:hover {
         border-color: var(--ro-accent);
-        box-shadow: var(--shadow-md);
-        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px);
+      }
+      .task-card:hover::after {
+        transform: scaleX(1);
       }
       .task-icon {
         width: 40px;
@@ -664,6 +851,13 @@
         margin-bottom: 14px;
         font-size: 20px;
         font-weight: 700;
+        transition: transform var(--t-med) var(--ease-out),
+          background var(--t-med) var(--ease), color var(--t-med) var(--ease);
+      }
+      .task-card:hover .task-icon {
+        transform: scale(1.1) rotate(-4deg);
+        background: var(--ro-accent);
+        color: #fff;
       }
       .task-card h4 {
         font-family: "RO Sans", sans-serif;
@@ -687,6 +881,7 @@
       .client {
         background: var(--ro-grey-1);
         padding: 14px 16px;
+        padding-right: 28px;
         border-radius: var(--radius-sm);
         font-size: 14px;
         font-weight: 500;
@@ -694,14 +889,37 @@
         border-left: 3px solid var(--ro-accent);
         text-decoration: none;
         display: block;
-        transition: background 0.15s, border-left-color 0.15s, transform 0.15s;
+        position: relative;
+        transition: background var(--t-med) var(--ease),
+          border-left-color var(--t-med) var(--ease),
+          border-left-width var(--t-med) var(--ease),
+          transform var(--t-med) var(--ease-out),
+          box-shadow var(--t-med) var(--ease);
+      }
+      .client::after {
+        content: "\2192";
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translate(-8px, -50%);
+        color: var(--ro-accent);
+        font-weight: 700;
+        opacity: 0;
+        transition: opacity var(--t-med) var(--ease),
+          transform var(--t-med) var(--ease-out);
       }
       .client:hover {
         background: #fff;
         border-left-color: var(--ro-blue);
-        box-shadow: var(--shadow-sm);
-        transform: translateX(2px);
+        border-left-width: 5px;
+        box-shadow: var(--shadow-md);
+        transform: translateX(4px);
         text-decoration: none;
+      }
+      .client:hover::after {
+        opacity: 1;
+        transform: translate(0, -50%);
+        color: var(--ro-blue);
       }
       .client small {
         display: block;
@@ -724,6 +942,20 @@
         border: 1px solid var(--ro-grey-2);
         border-radius: var(--radius-md);
         padding: 22px;
+        transition: transform var(--t-med) var(--ease-out),
+          border-color var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
+      }
+      .shift-box:hover {
+        transform: translateY(-3px);
+        border-color: var(--ro-accent);
+        box-shadow: var(--shadow-md);
+      }
+      .shift-box li {
+        transition: transform var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease);
+      }
+      .shift-box li:hover {
+        transform: translateX(3px);
+        color: var(--ro-ink);
       }
       .shift-box h4 {
         font-family: "RO Sans", sans-serif;
@@ -762,6 +994,11 @@
         font-size: 36px;
         color: var(--ro-yellow);
         font-weight: 900;
+        animation: shift-pulse 2.4s var(--ease) infinite;
+      }
+      @keyframes shift-pulse {
+        0%, 100% { transform: translateX(0); opacity: 1; }
+        50% { transform: translateX(6px); opacity: 0.65; }
       }
 
       /* Wheel */
@@ -784,7 +1021,11 @@
         color: var(--ro-grey-4);
         cursor: pointer;
         border-radius: var(--radius-sm);
-        transition: all 0.15s;
+        transition: color var(--t-fast) var(--ease), background var(--t-med) var(--ease),
+          transform var(--t-fast) var(--ease-out), box-shadow var(--t-med) var(--ease);
+      }
+      .wheel-toggle button:active {
+        transform: scale(0.96);
       }
       .wheel-toggle button:hover {
         color: var(--ro-ink);
@@ -904,6 +1145,26 @@
         border: 1px solid var(--ro-grey-2);
         border-radius: var(--radius-md);
         padding: 18px;
+        transition: border-color var(--t-med) var(--ease),
+          transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease);
+      }
+      .wheel-legend-box:hover {
+        border-color: var(--ro-accent);
+        transform: translateX(2px);
+        box-shadow: var(--shadow-sm);
+      }
+      .legend-items li {
+        transition: color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease-out);
+      }
+      .legend-items li:hover {
+        color: var(--ro-ink);
+        transform: translateX(4px);
+      }
+      .legend-items li:hover .legend-swatch {
+        transform: scale(1.2);
+      }
+      .legend-swatch {
+        transition: transform var(--t-med) var(--ease-out);
       }
       .wheel-legend-box h4 {
         font-family: "RO Sans", sans-serif;
@@ -1021,9 +1282,30 @@
       }
       footer a {
         color: rgba(255, 255, 255, 0.85);
+        position: relative;
+        display: inline-block;
+        transition: color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease-out),
+          padding-left var(--t-fast) var(--ease-out);
+        padding-left: 0;
+      }
+      footer a::before {
+        content: "\2192";
+        position: absolute;
+        left: -14px;
+        opacity: 0;
+        transform: translateX(-4px);
+        transition: opacity var(--t-fast) var(--ease),
+          transform var(--t-fast) var(--ease-out);
+        color: var(--ro-yellow);
       }
       footer a:hover {
         color: #fff;
+        text-decoration: none;
+        padding-left: 14px;
+      }
+      footer a:hover::before {
+        opacity: 1;
+        transform: translateX(0);
       }
       .foot-bottom {
         border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -1077,6 +1359,18 @@
           font-size: 13px;
         }
       }
+
+      /* Respect user motion preferences */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1096,7 +1390,6 @@
 
     <nav class="site-nav">
       <div class="container nav-inner">
-        <div class="nav-title">DICTU &mdash; Dienst ICT Uitvoering</div>
         <ul class="nav-links">
           <li><a href="#wiel">Het wiel</a></li>
           <li><a href="#ontstaan">Ontstaan</a></li>
@@ -1114,15 +1407,15 @@
           <span class="hero-eyebrow">Kabinet-Jetten &middot; 2026</span>
           <h1>DICTU binnen de machinerie van de Nederlandse Rijksoverheid</h1>
           <p class="lead">
-            De Dienst ICT Uitvoering (DICTU) is één van de grootste ICT-dienstverleners
-            binnen het Rijk. Ontstaan uit het ministerie van LNV, nu onderdeel van EZK,
-            en sinds 2026 politiek aangestuurd vanuit de nieuwe portefeuille Digitale
-            Economie en Soevereiniteit.
+            De Dienst ICT Uitvoering (DICTU) is een van de grootste ICT-dienstverleners
+            binnen de Rijksoverheid. Oorspronkelijk opgericht binnen het ministerie van
+            LNV, nu agentschap van EZK en sinds 2026 politiek aangestuurd vanuit de
+            nieuwe portefeuille Digitale Economie en Soevereiniteit.
           </p>
           <div class="hero-stats">
             <div class="hero-stat">
               <span class="num">~1.700</span>
-              <span class="lbl">Professionals</span>
+              <span class="lbl">Medewerkers</span>
             </div>
             <div class="hero-stat">
               <span class="num">1.500+</span>
@@ -1143,16 +1436,16 @@
               <span class="v">Agentschap (baten-lastendienst)</span>
             </li>
             <li>
-              <span class="k">Moederdepart.</span>
+              <span class="k">Moederdep.</span>
               <span class="v">Ministerie van Economische Zaken &amp; Klimaat</span>
             </li>
             <li>
               <span class="k">Opgericht</span>
-              <span class="v">2005 (agentschap per 1 jan 2008)</span>
+              <span class="v">2005 &middot; agentschap per 1 jan 2008</span>
             </li>
             <li>
               <span class="k">Eigenaar</span>
-              <span class="v">pSG ministerie van EZK</span>
+              <span class="v">Plv. SG EZK</span>
             </li>
             <li>
               <span class="k">Opdrachtgevers</span>
@@ -1179,7 +1472,8 @@
           <span class="block-label">Het wiel</span>
           <h2 class="block-title">DICTU in de machinerie van de Rijksoverheid</h2>
           <p class="block-sub">
-            Verken de organisatie en relaties binnen de Nederlandse Rijksoverheid.
+            Verken hoe DICTU zich verhoudt tot ministeries, bewindspersonen en
+            zusterorganisaties binnen de Rijksoverheid.
           </p>
         </div>
         <div class="wheel-toggle" role="tablist" aria-label="Wiel weergave">
@@ -1237,10 +1531,10 @@
           <span class="block-label">Ontstaansgeschiedenis</span>
           <h2 class="block-title">Hoe DICTU is ontstaan</h2>
           <p class="block-sub">
-            DICTU is in 2005 ontstaan door de versnipperde ICT-taken binnen het
-            ministerie van LNV te bundelen in één uitvoerende dienst. Doel: beleid en
-            uitvoering scheiden, en schaalvoordelen bereiken op applicaties,
-            werkplekken en infrastructuur.
+            DICTU ontstond in 2005 door versnipperde ICT-taken binnen het ministerie
+            van LNV te bundelen in één uitvoerende dienst. Doel: beleid en uitvoering
+            scheiden en schaalvoordelen behalen op applicaties, werkplekken en
+            infrastructuur.
           </p>
         </div>
         <div class="timeline">
@@ -1257,8 +1551,8 @@
             <div class="tl-year">2007</div>
             <div class="tl-title">Proefjaar baten-lastendienst</div>
             <div class="tl-body">
-              Samen met opdrachtgevers binnen LNV wordt gewerkt aan het verandertraject
-              naar een volwaardig agentschap met eigen begroting en bedrijfseconomische
+              Samen met opdrachtgevers binnen LNV wordt de overgang voorbereid naar
+              een volwaardig agentschap met eigen begroting en bedrijfseconomische
               sturing.
             </div>
           </div>
@@ -1272,22 +1566,21 @@
           </div>
           <div class="tl-item">
             <div class="tl-year">2010</div>
-            <div class="tl-title">Samenvoeging LNV en EZ &rarr; DICTU naar EZ</div>
+            <div class="tl-title">LNV en EZ samengevoegd &rarr; DICTU verhuist mee</div>
             <div class="tl-body">
-              Als gevolg van de samenvoeging van het ministerie van LNV met EZ
-              verhuist DICTU mee naar het ministerie van Economische Zaken (later
-              EZK). DICTU blijft diensten leveren aan EZ, LNV, RVO, NVWA en andere
-              uitvoerders.
+              Door de samenvoeging van de ministeries van LNV en EZ verhuist DICTU
+              mee naar het ministerie van Economische Zaken (later EZK). De dienst
+              blijft ICT leveren aan EZ, LNV, RVO, NVWA en andere uitvoerders.
             </div>
           </div>
           <div class="tl-item">
             <div class="tl-year">2016 &mdash; 2022</div>
             <div class="tl-title">Doorlichtingen &amp; professionalisering</div>
             <div class="tl-body">
-              Twee beleidsdoorlichtingen (2016, 2022) leggen de basis voor verdere
+              Twee beleidsdoorlichtingen (2016, 2022) vormen de basis voor verdere
               professionalisering: herijking van de rolverdeling
               eigenaar &minus; opdrachtgever &minus; opdrachtnemer, aanscherping
-              portfoliomanagement en investeringen in cybersecurity en cloud.
+              van portfoliomanagement en investeringen in cybersecurity en cloud.
             </div>
           </div>
           <div class="tl-item highlight">
@@ -1295,8 +1588,8 @@
             <div class="tl-title">Nieuwe politieke aansturing onder Kabinet-Jetten</div>
             <div class="tl-body">
               Het Kabinet-Jetten verplaatst de coördinatie van digitale zaken van BZK
-              naar EZK. DICTU blijft onder EZK en wordt daarmee politiek aangestuurd
-              door de nieuwe staatssecretaris Digitale Economie en Soevereiniteit,
+              naar EZK. DICTU blijft onder EZK en krijgt daarmee een nieuwe politieke
+              opdrachtgever: staatssecretaris Digitale Economie en Soevereiniteit
               Willemijn Aerdts (D66).
             </div>
           </div>
@@ -1310,7 +1603,7 @@
           <span class="block-label">Plek in de Rijksdienst</span>
           <h2 class="block-title">Waar zit DICTU in de machinerie?</h2>
           <p class="block-sub">
-            DICTU is één van de uitvoeringsagentschappen van EZK. De politieke
+            DICTU is een van de uitvoeringsagentschappen van EZK. De politieke
             aansturing loopt via de staatssecretaris; het eigenaarschap ligt bij de
             plaatsvervangend secretaris-generaal.
           </p>
@@ -1400,10 +1693,10 @@
           <span class="block-label">Bewindspersonen</span>
           <h2 class="block-title">Wie zijn Eric van der Burg &amp; Willemijn Aerdts?</h2>
           <p class="block-sub">
-            Het digitale dossier is in het Kabinet-Jetten gesplitst over twee
-            staatssecretarissen: de &ldquo;agile overheid&rdquo; bij BZK en de
-            &ldquo;digitale economie &amp; soevereiniteit&rdquo; bij EZK. DICTU valt
-            politiek onder laatstgenoemde, maar werkt operationeel met beide.
+            Het digitale dossier is in het Kabinet-Jetten verdeeld over twee
+            staatssecretarissen: de &ldquo;slagvaardige overheid&rdquo; bij BZK en
+            de &ldquo;digitale economie &amp; soevereiniteit&rdquo; bij EZK. DICTU
+            valt politiek onder de laatste, maar werkt operationeel met beide.
           </p>
         </div>
         <div class="people-grid">
@@ -1412,7 +1705,7 @@
               <div class="person-top">
                 <div class="avatar">EB</div>
                 <div>
-                  <div class="person-name">Eric van der Burg</div>
+                  <div class="person-name"><a href="https://www.rijksoverheid.nl/regering/bewindspersonen/eric-van-der-burg" target="_blank" rel="noopener">Eric van der Burg</a></div>
                   <div class="person-role">Staatssecretaris Koninkrijksrelaties &amp; Slagvaardige Overheid</div>
                   <span class="person-badge badge-vvd">VVD</span>
                   <div class="person-ministry">
@@ -1462,7 +1755,7 @@
               <div class="person-top">
                 <div class="avatar">WA</div>
                 <div>
-                  <div class="person-name">Willemijn Aerdts</div>
+                  <div class="person-name"><a href="https://www.rijksoverheid.nl/regering/bewindspersonen/willemijn-aerdts" target="_blank" rel="noopener">Willemijn Aerdts</a></div>
                   <div class="person-role">Staatssecretaris Digitale Economie &amp; Soevereiniteit</div>
                   <span class="person-badge badge-d66">D66</span>
                   <div class="person-ministry">

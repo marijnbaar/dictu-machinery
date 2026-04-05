@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23154273'/%3E%3Cpath d='M6 13 L9 7 L12 11 L16 4 L20 11 L23 7 L26 13 L26 16 L6 16 Z' fill='%23fff'/%3E%3Ccircle cx='16' cy='3.2' r='1.4' fill='%23fff'/%3E%3Cpath d='M9 18 L23 18 L23 24 Q23 27 16 30 Q9 27 9 24 Z' fill='%23fff'/%3E%3C/svg%3E"
+    />
     <title>Machinery of Government — DICTU & de Nederlandse Rijksoverheid</title>
     <meta
       name="description"
@@ -81,38 +86,58 @@
         padding: 0 24px;
       }
 
-      /* Header */
-      .topbar {
-        background: var(--ro-blue);
-        border-bottom: 3px solid var(--ro-yellow);
-        padding: 10px 0;
+      /* Header — Rijksoverheid/DICTU huisstijl */
+      .site-header {
+        background: #fff;
+        border-bottom: 1px solid var(--ro-grey-2);
+        padding: 14px 0;
       }
-      .topbar-inner {
+      .site-header-inner {
+        display: flex;
+        align-items: stretch;
+      }
+      .brand {
+        display: flex;
+        align-items: stretch;
+        text-decoration: none;
+        color: inherit;
+      }
+      .brand-mark {
+        background: var(--ro-blue);
+        padding: 10px 12px;
         display: flex;
         align-items: center;
-        gap: 16px;
+        justify-content: center;
+        flex-shrink: 0;
       }
-      .logo-mark {
-        width: 40px;
-        height: 40px;
-        background: #fff;
-        border-radius: 4px;
-        display: grid;
-        place-items: center;
+      .brand-mark svg {
+        width: 30px;
+        height: 42px;
+        display: block;
+      }
+      .brand-text {
+        padding: 4px 18px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        line-height: 1.25;
+      }
+      .brand-text strong {
         font-family: "RO Serif", serif;
         font-weight: 700;
-        color: var(--ro-blue);
-        font-size: 20px;
+        font-size: 17px;
+        color: var(--ro-ink);
       }
-      .logo-text {
-        color: #fff;
+      .brand-text em {
+        font-family: "RO Serif", serif;
+        font-style: italic;
         font-size: 13px;
-        line-height: 1.2;
+        color: var(--ro-grey-4);
+        margin-top: 1px;
       }
-      .logo-text strong {
-        display: block;
-        font-size: 15px;
-        font-weight: 700;
+      @media (max-width: 500px) {
+        .brand-text strong { font-size: 15px; }
+        .brand-text em { font-size: 12px; }
       }
 
       nav.site-nav {
@@ -258,6 +283,61 @@
         height: 20px;
         background: var(--ro-blue);
         border-radius: 2px;
+      }
+      .hero-motto {
+        margin: 0 0 18px;
+        padding: 14px 16px;
+        background: linear-gradient(90deg, var(--ro-yellow) 0%, #ffcf54 100%);
+        border-radius: var(--radius-sm);
+        font-family: "RO Serif", serif;
+        font-style: italic;
+        font-size: 15px;
+        color: var(--ro-blue-dark);
+        font-weight: 700;
+        position: relative;
+      }
+      .hero-motto::before {
+        content: "\201C";
+        position: absolute;
+        top: -2px;
+        left: 6px;
+        font-size: 36px;
+        color: var(--ro-blue-dark);
+        opacity: 0.25;
+        font-family: Georgia, serif;
+        line-height: 1;
+      }
+      .hero-motto span {
+        display: block;
+        padding-left: 14px;
+      }
+      .client-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .client-chips a {
+        display: inline-block;
+        padding: 4px 10px;
+        background: var(--ro-blue-light);
+        color: var(--ro-accent);
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 3px;
+        text-decoration: none;
+        transition: background 0.15s, color 0.15s;
+        border: 1px solid transparent;
+      }
+      .client-chips a:hover {
+        background: var(--ro-accent);
+        color: #fff;
+        text-decoration: none;
+      }
+      .client-chips .more {
+        color: var(--ro-grey-3);
+        font-size: 12px;
+        padding: 4px 0;
+        font-style: italic;
       }
       .quick-facts {
         list-style: none;
@@ -642,6 +722,16 @@
         font-weight: 500;
         color: var(--ro-ink);
         border-left: 3px solid var(--ro-accent);
+        text-decoration: none;
+        display: block;
+        transition: background 0.15s, border-left-color 0.15s, transform 0.15s;
+      }
+      .client:hover {
+        background: #fff;
+        border-left-color: var(--ro-blue);
+        box-shadow: var(--shadow-sm);
+        transform: translateX(2px);
+        text-decoration: none;
       }
       .client small {
         display: block;
@@ -705,6 +795,36 @@
       }
 
       /* Wheel */
+      .wheel-toggle {
+        display: inline-flex;
+        background: var(--ro-grey-1);
+        border: 1px solid var(--ro-grey-2);
+        border-radius: var(--radius-md);
+        padding: 4px;
+        margin-bottom: 20px;
+        gap: 2px;
+      }
+      .wheel-toggle button {
+        background: transparent;
+        border: none;
+        padding: 8px 18px;
+        font-family: "RO Sans", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ro-grey-4);
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        transition: all 0.15s;
+      }
+      .wheel-toggle button:hover {
+        color: var(--ro-ink);
+        background: rgba(255, 255, 255, 0.6);
+      }
+      .wheel-toggle button.active {
+        background: var(--ro-blue);
+        color: #fff;
+        box-shadow: var(--shadow-sm);
+      }
       .wheel-wrap {
         display: grid;
         grid-template-columns: 1fr 280px;
@@ -990,15 +1110,32 @@
     </style>
   </head>
   <body>
-    <div class="topbar">
-      <div class="container topbar-inner">
-        <div class="logo-mark">N</div>
-        <div class="logo-text">
-          <strong>Rijksoverheid</strong>
-          Machinery of Government — Verkenning
-        </div>
+    <header class="site-header">
+      <div class="container site-header-inner">
+        <a class="brand" href="https://www.dictu.nl/" aria-label="DICTU — Dienst ICT Uitvoering">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg">
+              <!-- Kroon -->
+              <path d="M 6 16 L 10 8 L 14 14 L 20 4 L 26 14 L 30 8 L 34 16 Z" fill="#fff"/>
+              <rect x="6" y="16" width="28" height="3.5" rx="0.5" fill="#fff"/>
+              <circle cx="20" cy="3" r="1.6" fill="#fff"/>
+              <circle cx="10" cy="7" r="1" fill="#fff"/>
+              <circle cx="30" cy="7" r="1" fill="#fff"/>
+              <!-- Schild -->
+              <path d="M 12 22 L 28 22 L 28 38 Q 28 45 20 50 Q 12 45 12 38 Z" fill="#fff"/>
+              <!-- Schildstrepen (blauw) -->
+              <rect x="15" y="26" width="10" height="1.6" fill="#154273"/>
+              <rect x="15" y="30" width="10" height="1.6" fill="#154273"/>
+              <rect x="15" y="34" width="10" height="1.6" fill="#154273"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <strong>Dienst ICT Uitvoering</strong>
+            <em>Ministerie van Economische Zaken</em>
+          </div>
+        </a>
       </div>
-    </div>
+    </header>
 
     <nav class="site-nav">
       <div class="container nav-inner">
@@ -1041,6 +1178,7 @@
           </div>
         </div>
         <aside class="hero-card">
+          <div class="hero-motto"><span>DICTU maakt dat het werkt.</span></div>
           <h3>Kerngegevens DICTU</h3>
           <ul class="quick-facts">
             <li>
@@ -1060,12 +1198,18 @@
               <span class="v">pSG ministerie van EZK</span>
             </li>
             <li>
-              <span class="k">Motto</span>
-              <span class="v">&ldquo;DICTU maakt dat het werkt&rdquo;</span>
-            </li>
-            <li>
               <span class="k">Opdrachtgevers</span>
-              <span class="v">EZK, LNV, RVO, NVWA, AT, ACM &amp; meer</span>
+              <span class="v">
+                <span class="client-chips">
+                  <a href="https://www.rijksoverheid.nl/ministeries/ministerie-van-economische-zaken-en-klimaat" target="_blank" rel="noopener">EZK</a>
+                  <a href="https://www.rijksoverheid.nl/ministeries/ministerie-van-landbouw-natuur-en-voedselkwaliteit" target="_blank" rel="noopener">LNV</a>
+                  <a href="https://www.rvo.nl/" target="_blank" rel="noopener">RVO</a>
+                  <a href="https://www.nvwa.nl/" target="_blank" rel="noopener">NVWA</a>
+                  <a href="https://www.rdi.nl/" target="_blank" rel="noopener">RDI</a>
+                  <a href="https://www.acm.nl/" target="_blank" rel="noopener">ACM</a>
+                  <span class="more">&amp; meer</span>
+                </span>
+              </span>
             </li>
           </ul>
         </aside>
@@ -1075,14 +1219,15 @@
     <section class="block alt" id="wiel">
       <div class="container">
         <div class="block-head">
-          <span class="block-label">Het wiel &middot; concentrische ringen</span>
+          <span class="block-label">Het wiel</span>
           <h2 class="block-title">DICTU in de machinerie van de Rijksoverheid</h2>
           <p class="block-sub">
-            Concentrische ringen per &ldquo;constitutionele afstand&rdquo; vanaf de
-            minister-president. Kabinet-Jetten in het midden, daaromheen de 12
-            ministeries, dan de bewindspersonen, de agentschappen en ten slotte de
-            uitvoerders. DICTU is gemarkeerd in blauw.
+            Verken de organisatie en relaties binnen de Nederlandse Rijksoverheid.
           </p>
+        </div>
+        <div class="wheel-toggle" role="tablist" aria-label="Wiel weergave">
+          <button class="active" data-mode="dictu" role="tab" aria-selected="true">DICTU-focus</button>
+          <button data-mode="all" role="tab" aria-selected="false">Hele Rijksoverheid</button>
         </div>
         <div class="wheel-wrap">
           <div class="wheel-stage">
@@ -1118,6 +1263,7 @@
             <div class="wheel-legend-box">
               <h4>Interactie</h4>
               <p class="wheel-hint">
+                <strong>Toggle</strong> = schakel tussen DICTU-focus en de hele Rijksoverheid.<br>
                 <strong>Hover</strong> = naam &amp; rol zien.<br>
                 <strong>Klik</strong> = officiële overheidssite openen (nieuw tabblad).<br>
                 <strong>&#8679;Shift+klik</strong> = keten highlighten (eigenaar &rarr; dienst &rarr; klanten).
@@ -1490,14 +1636,14 @@
           Belangrijkste opdrachtgevers
         </h3>
         <div class="clients">
-          <div class="client">EZK <small>Moederdepartement</small></div>
-          <div class="client">LNV <small>Landbouw, Natuur, Voedselkwaliteit</small></div>
-          <div class="client">RVO <small>Rijksdienst voor Ondernemend Nederland</small></div>
-          <div class="client">NVWA <small>Voedsel &amp; Warenautoriteit</small></div>
-          <div class="client">Agentschap Telecom <small>RDI</small></div>
-          <div class="client">ACM <small>Autoriteit Consument &amp; Markt</small></div>
-          <div class="client">SodM <small>Staatstoezicht op de Mijnen</small></div>
-          <div class="client">CBS <small>Centraal Bureau voor de Statistiek</small></div>
+          <a class="client" href="https://www.rijksoverheid.nl/ministeries/ministerie-van-economische-zaken-en-klimaat" target="_blank" rel="noopener">EZK <small>Moederdepartement</small></a>
+          <a class="client" href="https://www.rijksoverheid.nl/ministeries/ministerie-van-landbouw-natuur-en-voedselkwaliteit" target="_blank" rel="noopener">LNV <small>Landbouw, Natuur, Voedselkwaliteit</small></a>
+          <a class="client" href="https://www.rvo.nl/" target="_blank" rel="noopener">RVO <small>Rijksdienst voor Ondernemend Nederland</small></a>
+          <a class="client" href="https://www.nvwa.nl/" target="_blank" rel="noopener">NVWA <small>Voedsel &amp; Warenautoriteit</small></a>
+          <a class="client" href="https://www.rdi.nl/" target="_blank" rel="noopener">RDI <small>Rijksinspectie Digitale Infrastructuur (voorheen AT)</small></a>
+          <a class="client" href="https://www.acm.nl/" target="_blank" rel="noopener">ACM <small>Autoriteit Consument &amp; Markt</small></a>
+          <a class="client" href="https://www.sodm.nl/" target="_blank" rel="noopener">SodM <small>Staatstoezicht op de Mijnen</small></a>
+          <a class="client" href="https://www.cbs.nl/" target="_blank" rel="noopener">CBS <small>Centraal Bureau voor de Statistiek</small></a>
         </div>
       </div>
     </section>
@@ -1565,7 +1711,6 @@
               <li><a href="https://www.rijksoverheid.nl/regering/over-de-regering/kabinetten-sinds-1945/kabinet-jetten" target="_blank" rel="noopener">Rijksoverheid &middot; Kabinet-Jetten</a></li>
               <li><a href="https://www.rijksoverheid.nl/regering/bewindspersonen/eric-van-der-burg" target="_blank" rel="noopener">Profiel Eric van der Burg</a></li>
               <li><a href="https://www.rijksoverheid.nl/regering/bewindspersonen/willemijn-aerdts" target="_blank" rel="noopener">Profiel Willemijn Aerdts</a></li>
-              <li><a href="https://www.computable.nl/2026/02/24/kabinet-jetten-digitale-zaken-verhuist-van-bzk-naar-ezk/" target="_blank" rel="noopener">Computable &middot; Digitale zaken van BZK naar EZK</a></li>
             </ul>
           </div>
           <div>
@@ -1586,7 +1731,6 @@
         </div>
         <div class="foot-bottom">
           <div>&copy; 2026 &middot; Verkenning, niet-officiële visualisatie.</div>
-          <div>Gebouwd met HTML &amp; CSS &middot; Rijksoverheid-inspired design</div>
         </div>
       </div>
     </footer>
@@ -1622,6 +1766,15 @@
         { id: "lnvmin",  label: "LNV-min.",      full: "Minister LNV",      type: "Minister · LNV",                                ring: 2, angle: 120, color: "#01689b", shape: "circle", url: "https://www.rijksoverheid.nl/ministeries/ministerie-van-landbouw-natuur-en-voedselkwaliteit/organisatie/bewindspersonen" },
 
         // Ring 3 — agentschappen & ICT-diensten
+        { id: "bd",      label: "BD",       full: "Belastingdienst",               type: "Agentschap · Financiën",  ring: 3, angle: 72,  color: "#535353", shape: "circle", url: "https://www.belastingdienst.nl/" },
+        { id: "rws",     label: "RWS",      full: "Rijkswaterstaat",               type: "Agentschap · IenW",       ring: 3, angle: 86,  color: "#535353", shape: "circle", url: "https://www.rijkswaterstaat.nl/" },
+        { id: "ilt",     label: "ILT",      full: "Inspectie Leefomgeving & Transport", type: "Inspectie · IenW",    ring: 3, angle: 100, color: "#535353", shape: "circle", url: "https://www.ilent.nl/" },
+        { id: "ind",     label: "IND",      full: "Immigratie- en Naturalisatiedienst", type: "Agentschap · JenV",   ring: 3, angle: 142, color: "#535353", shape: "circle", url: "https://ind.nl/" },
+        { id: "duo",     label: "DUO",      full: "Dienst Uitvoering Onderwijs",   type: "Agentschap · OCW",        ring: 3, angle: 158, color: "#535353", shape: "circle", url: "https://duo.nl/" },
+        { id: "uwv",     label: "UWV",      full: "Uitvoeringsinstituut Werknemersverzekeringen", type: "ZBO · SZW", ring: 3, angle: 174, color: "#535353", shape: "circle", url: "https://www.uwv.nl/" },
+        { id: "svb",     label: "SVB",      full: "Sociale Verzekeringsbank",      type: "ZBO · SZW",               ring: 3, angle: 188, color: "#535353", shape: "circle", url: "https://www.svb.nl/" },
+        { id: "rivm",    label: "RIVM",     full: "Rijksinstituut v. Volksgezondheid & Milieu", type: "Agentschap · VWS", ring: 3, angle: 204, color: "#535353", shape: "circle", url: "https://www.rivm.nl/" },
+        // DICTU + dichte digitale schil
         { id: "dictu",   label: "DICTU",    full: "Dienst ICT Uitvoering",        type: "Agentschap · EZK (focus)", ring: 3, angle: 0,   color: "#ffb612", shape: "circle", r: 32, focus: true, url: "https://www.dictu.nl/" },
         { id: "ndd",     label: "NDD",      full: "Nederlandse Digitale Dienst",  type: "Dienst · EZK",             ring: 3, angle: 18,  color: "#ffb612", shape: "circle", url: "https://www.rijksoverheid.nl/onderwerpen/digitale-overheid" },
         { id: "rvo",     label: "RVO",      full: "Rijksdienst voor Ondernemend Nederland", type: "Agentschap · EZK/LNV", ring: 3, angle: -18, color: "#39870c", shape: "circle", url: "https://www.rvo.nl/" },
@@ -1645,14 +1798,18 @@
 
       // Edges: which nodes are linked (political line + client relationships for DICTU)
       const edges = [
-        // MP → ministries (only core two for clarity)
-        ["mp","ezk"], ["mp","bzk"], ["mp","lnv"], ["mp","fin"], ["mp","jenv"], ["mp","az"],
+        // MP → all ministries
+        ["mp","az"], ["mp","buza"], ["mp","def"], ["mp","ezk"], ["mp","fin"], ["mp","ienw"],
+        ["mp","jenv"], ["mp","lnv"], ["mp","ocw"], ["mp","szw"], ["mp","vws"], ["mp","bzk"],
         // Ministries → bewindspersonen
         ["ezk","aerdts"], ["ezk","ezkmin"], ["bzk","vdb"], ["bzk","bzkmin"], ["lnv","lnvmin"],
-        // Bewindspersonen / ministeries → agentschappen
+        // Bewindspersonen / ministeries → agentschappen (digitaal)
         ["aerdts","dictu"], ["aerdts","ndd"], ["aerdts","rdi"], ["aerdts","acm"],
         ["ezk","rvo"], ["lnvmin","nvwa"], ["lnvmin","rvo"],
         ["vdb","sscict"], ["vdb","logius"], ["vdb","ictu"], ["vdb","rvig"],
+        // Overige ministeries → agentschappen
+        ["fin","bd"], ["ienw","rws"], ["ienw","ilt"], ["jenv","ind"],
+        ["ocw","duo"], ["szw","uwv"], ["szw","svb"], ["vws","rivm"],
         // DICTU → clients/used-by
         ["dictu","rvo"], ["dictu","nvwa"], ["dictu","acm"], ["dictu","cbs"],
         ["dictu","sodm"], ["dictu","at"], ["dictu","nea"], ["dictu","rdi"],
@@ -1673,21 +1830,13 @@
       nodes.forEach(n => { const p = polar(n.ring, n.angle); n.x = p.x; n.y = p.y; });
       const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]));
 
-      // Background rings + labels
-      const ringLabels = ["", "Ministeries", "Bewindspersonen", "Agentschappen", "Uitvoerders"];
+      // Background rings (labels are in the legend sidebar)
       for (let i = 1; i <= 4; i++) {
         const c = document.createElementNS(SVG_NS, "circle");
         c.setAttribute("class", "ring-circle");
         c.setAttribute("cx", CX); c.setAttribute("cy", CY);
         c.setAttribute("r", RINGS[i]);
         svg.appendChild(c);
-        const t = document.createElementNS(SVG_NS, "text");
-        t.setAttribute("class", "ring-label");
-        t.setAttribute("x", CX + RINGS[i] + 4);
-        t.setAttribute("y", CY - 6);
-        t.setAttribute("text-anchor", "start");
-        t.textContent = ringLabels[i];
-        svg.appendChild(t);
       }
 
       // Node radius helper (matches rendering below). For squares this is half-side.
@@ -1842,8 +1991,24 @@
         });
       }
 
+      // ===== View mode toggle =====
+      let viewMode = "dictu";
+      function setViewMode(mode) {
+        viewMode = mode;
+        document.querySelectorAll(".wheel-toggle button").forEach(btn => {
+          const active = btn.dataset.mode === mode;
+          btn.classList.toggle("active", active);
+          btn.setAttribute("aria-selected", String(active));
+        });
+        clearFocus();
+        if (mode === "dictu") toggleFocus("dictu");
+      }
+      document.querySelectorAll(".wheel-toggle button").forEach(btn => {
+        btn.addEventListener("click", () => setViewMode(btn.dataset.mode));
+      });
+
       // Highlight DICTU chain by default
-      toggleFocus("dictu");
+      setViewMode("dictu");
     </script>
   </body>
 </html>
